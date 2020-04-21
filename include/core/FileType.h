@@ -1,8 +1,13 @@
 #pragma once
 
-#include <urlmon.h>
-
 #include "String.h"
 #include "../libufmdef.h"
 
-METHOD String MimeTypeFromString(const String& szExtension);
+namespace libufm
+{
+    namespace FileType
+    {
+        METHOD String MimeTypeFromString(const String& extension);
+        METHOD bool IsGdipSupportedImage(const String& fileType);
+    }
+}

@@ -1,27 +1,32 @@
 #include <core/FileType.h>
 
-METHOD String MimeTypeFromString(const String& szExtension)
+METHOD String libufm::FileType::MimeTypeFromString(const String& extension)
 {
-    char buff[256];
-    LPWSTR out = (wchar_t*) L"unkown/unkown";
-
-    FILE* in;
-    _wfopen_s(&in, szExtension.c_str(), L"rb");
-
-    if (in != 0)
+    if (IsGdipSupportedImage(extension))
     {
-        fread(buff, 1, 256, in);
-
-        FindMimeFromData(
-            NULL,
-            NULL,
-            buff,
-            256,
-            NULL,
-            FMFD_DEFAULT,
-            &out,
-            0);
+        return L"image";
     }
 
-    return StringSplit(out, L"/")[0];
+    if (extension == L"txt" || extension == L"log" || extension == L"rtf" || extension == L"ini"
+        || extension == L"html" || extension == L"htm" || extension == L"js" || extension == L"css"
+        || extension == L"c" || extension == L"cpp" || extension == L"cxx" || extension == L"h" || extension == L"hpp")
+    {
+        return L"text";
+    }
+
+    return L"unknown";
+}
+
+METHOD bool libufm::FileType::IsGdipSupportedImage(const String& fileType)
+{
+    return (fileType == L"bmp" ||
+        fileType == L"dib" ||
+        fileType == L"ico" ||
+        fileType == L"gif" ||
+        fileType == L"jpg" ||
+        fileType == L"jpeg" ||
+        fileType == L"png" ||
+        fileType == L"tiff" ||
+        fileType == L"wmf" ||
+        fileType == L"emf");
 }
