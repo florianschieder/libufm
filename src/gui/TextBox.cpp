@@ -81,7 +81,6 @@ METHOD void TextBox::ReadBinaryFile(String file)
 
 METHOD void TextBox::ReadTextFile(String file)
 {
-    char* fileContent;
     long fileSize;
     FILE* fp;
 
@@ -100,18 +99,38 @@ METHOD void TextBox::ReadTextFile(String file)
 
         long offs = fileSize + 1L;
 
-        // Initialize file buffer
-        fileContent = new char[offs];
-        fread(fileContent, fileSize, sizeof(char), fp);
-        fileContent[fileSize] = '\0';
+        if (libufm::FileType::IsUnicode(fp))
+        {
+            // Read unicode file buffer
 
-        SendMessageA(
-            this->GetHandle(),
-            WM_SETTEXT,
-            0,
-            (LPARAM)fileContent);
-        
-        delete[] fileContent;
+            wchar_t* fileContent = new wchar_t[offs];
+            fread_s(fileContent, fileSize * sizeof(wchar_t), sizeof(wchar_t), fileSize, fp);
+            fileContent[fileSize] = L'\0';
+
+            SendMessageW(
+                this->GetHandle(),
+                WM_SETTEXT,
+                0,
+                (LPARAM)fileContent);
+
+            delete[] fileContent;
+        }
+        else
+        {
+            // Read ansi file buffer
+
+            char* fileContent = new char[offs];
+            fread_s(fileContent, fileSize, 1, fileSize, fp);
+            fileContent[fileSize] = '\0';
+
+            SendMessageA(
+                this->GetHandle(),
+                WM_SETTEXT,
+                0,
+                (LPARAM)fileContent);
+
+            delete[] fileContent;
+        }
 
         fclose(fp);
     }

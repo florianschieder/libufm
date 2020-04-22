@@ -14,6 +14,11 @@ METHOD String libufm::FileType::MimeTypeFromString(const String& extension)
         return L"text";
     }
 
+    if (extension == L"exe" || extension == L"cab" || extension == L"msi" || extension == L"dll" || extension == L"zip")
+    {
+        return L"binary";
+    }
+
     return L"unknown";
 }
 
@@ -29,4 +34,37 @@ METHOD bool libufm::FileType::IsGdipSupportedImage(const String& fileType)
         fileType == L"tiff" ||
         fileType == L"wmf" ||
         fileType == L"emf");
+}
+
+METHOD bool libufm::FileType::IsUnicode(const String& filename)
+{
+    FILE* fp;
+    bool isUnicode;
+    
+    _wfopen_s(
+        &fp,
+        filename.c_str(),
+        L"r+b");
+
+    isUnicode = IsUnicode(fp);
+
+    fclose(fp);
+
+    return isUnicode;
+}
+
+METHOD bool libufm::FileType::IsUnicode(FILE* fh)
+{
+    char buf[2];
+
+    fread_s(
+        buf,
+        2,
+        1,
+        2,
+        fh);
+    rewind(fh);
+
+    return (buf[0] == ((char) 0xFF)
+         && buf[1] == ((char)0xFE));
 }

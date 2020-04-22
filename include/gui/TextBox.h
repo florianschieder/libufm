@@ -2,7 +2,8 @@
 
 #include <fstream>
 
-#include "InputBox.h"
+#include <core/FileType.h>
+#include <gui/InputBox.h>
 
 class TextBox : public InputBox
 {

@@ -9,5 +9,7 @@ namespace libufm
     {
         METHOD String MimeTypeFromString(const String& extension);
         METHOD bool IsGdipSupportedImage(const String& fileType);
+        METHOD bool IsUnicode(const String& filename);
+        METHOD bool IsUnicode(FILE* fh);
     }
 }
