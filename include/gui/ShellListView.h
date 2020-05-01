@@ -19,6 +19,7 @@ class ShellListView : public ListView
         METHOD String GetDirectory();
         METHOD void SetDirectory(String);
         METHOD void RefreshView();
+        METHOD void Show();
 
         String CurrentDrive;
         String SelectedPath;

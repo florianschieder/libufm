@@ -4,7 +4,7 @@ METHOD ShellListView::ShellListView(Window* parent) : ListView(parent)
 {
     this->m_Directory = L"C:\\";
     this->m_Filter = L"*.*";
-
+    
     this->Show();
 
     this->AddColumn(
@@ -87,6 +87,22 @@ METHOD void ShellListView::RefreshView()
 
     // Stop time intensive process
     this->UninitializeTimeIntensiveProcess();
+}
+
+METHOD void ShellListView::Show()
+{
+    ListView::Show();
+
+    SendMessage(
+        this->m_controlHandle,
+        LVM_SETEXTENDEDLISTVIEWSTYLE,
+        0,
+        LVS_EX_FULLROWSELECT);
+
+    SetWindowTheme(
+        this->m_controlHandle,
+        L"Explorer",
+        NULL);
 }
 
 METHOD bool ShellListView::Enumerate()

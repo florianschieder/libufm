@@ -1,8 +1,11 @@
 #pragma once
 
-#include <Windows.h>
-#include <time.h>
 #include <string>
+
+#include <time.h>
+
+#include <Windows.h>
+#include <Uxtheme.h>
 
 #pragma region Common Definitions
 
