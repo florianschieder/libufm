@@ -1,28 +1,38 @@
 #include <core/FileDetection.h>
 
-METHOD String libufm::Core::FileDetection::MimeTypeFromString(const String& extension)
+METHOD String libufm::Core::FileDetection::MimeTypeFromString(String& extension)
 {
-    if (IsGdipSupportedImage(extension))
+    HKEY hKey = NULL;
+
+    if (extension[0] != L'.')
     {
-        return L"image";
+        std::wstring extensionCopy = L".";
+        extensionCopy.append(extension);
+
+        extension = extensionCopy;
     }
 
-    if (extension == L"txt" || extension == L"log" || extension == L"rtf" || extension == L"ini"
-        || extension == L"html" || extension == L"htm" || extension == L"js" || extension == L"css"
-        || extension == L"c" || extension == L"cpp" || extension == L"cxx" || extension == L"h" || extension == L"hpp")
+    std::wstring szResult = L"application/unknown";
+
+    if (RegOpenKeyEx(HKEY_CLASSES_ROOT, extension.c_str(),
+        0, KEY_READ, &hKey) == ERROR_SUCCESS)
     {
-        return L"text";
+        wchar_t szBuffer[256] = { 0 };
+        DWORD dwBuffSize = sizeof(szBuffer);
+
+        if (RegQueryValueEx(hKey, L"Content Type", NULL, NULL,
+            (LPBYTE)szBuffer, &dwBuffSize) == ERROR_SUCCESS)
+        {
+            szResult = szBuffer;
+        }
+
+        RegCloseKey(hKey);
     }
 
-    if (extension == L"exe" || extension == L"cab" || extension == L"msi" || extension == L"dll" || extension == L"zip")
-    {
-        return L"binary";
-    }
-
-    return L"unknown";
+    return szResult;
 }
 
-METHOD bool libufm::Core::FileDetection::IsGdipSupportedImage(const String& fileType)
+METHOD bool libufm::Core::FileDetection::IsGdipSupportedImage(String& fileType)
 {
     return (fileType == L"bmp" ||
         fileType == L"dib" ||
@@ -36,7 +46,7 @@ METHOD bool libufm::Core::FileDetection::IsGdipSupportedImage(const String& file
         fileType == L"emf");
 }
 
-METHOD bool libufm::Core::FileDetection::IsUnicode(const String& filename)
+METHOD bool libufm::Core::FileDetection::IsUnicode(String& filename)
 {
     FILE* fp;
     bool isUnicode;
@@ -44,7 +54,7 @@ METHOD bool libufm::Core::FileDetection::IsUnicode(const String& filename)
     _wfopen_s(
         &fp,
         filename.c_str(),
-        L"r+b");
+        L"rb");
 
     isUnicode = IsUnicode(fp);
 
@@ -67,4 +77,51 @@ METHOD bool libufm::Core::FileDetection::IsUnicode(FILE* fh)
 
     return (buf[0] == ((char) 0xFF)
          && buf[1] == ((char)0xFE));
+}
+
+METHOD bool libufm::Core::FileDetection::IsTextFile(String& filename)
+{
+    FILE* fp;
+    bool isTextFile = true;
+
+    _wfopen_s(
+        &fp,
+        filename.c_str(),
+        L"rb");
+
+    if (fp != 0)
+    {
+        isTextFile = IsTextFile(fp);
+        fclose(fp);
+    }
+
+    return isTextFile;
+}
+
+METHOD bool libufm::Core::FileDetection::IsTextFile(FILE* fh)
+{
+    char buf[512];
+
+    int readCharacters = fread_s(
+        buf,
+        sizeof(buf),
+        sizeof(char),
+        512,
+        fh);
+
+    rewind(fh);
+    
+    for (int i = 0; i < readCharacters; i++)
+    {
+        // Heuristic analysis if there are characters untypical for a
+        // plain text file
+
+        if (buf[i] != '\r' && buf[i] != '\n' // Line breaks
+            && !((buf[i] >= 20) && (buf[i] <= 126))) // "Regular" characters
+        {
+            return false;
+        }
+    }
+
+    return true;
 }

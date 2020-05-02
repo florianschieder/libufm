@@ -3,16 +3,20 @@
 #include "String.h"
 #include "../libufmdef.h"
 
+#include <map>
+
 namespace libufm
 {
     namespace Core
     {
         namespace FileDetection
         {
-            METHOD String MimeTypeFromString(const String& extension);
-            METHOD bool IsGdipSupportedImage(const String& fileType);
-            METHOD bool IsUnicode(const String& filename);
+            METHOD bool IsGdipSupportedImage(String& fileType);
+            METHOD bool IsUnicode(String& filename);
             METHOD bool IsUnicode(FILE* fh);
+            METHOD bool IsTextFile(String& filename);
+            METHOD bool IsTextFile(FILE* fh);
+            METHOD String MimeTypeFromString(String& extension);
         }
     }
 }
