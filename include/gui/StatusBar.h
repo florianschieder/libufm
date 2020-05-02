@@ -9,11 +9,10 @@ namespace libufm
         class StatusBar : public Control
         {
         public:
-            METHOD StatusBar(Window* parent, int x, int y, int w, int h);
+            METHOD StatusBar(Window* parent);
             METHOD ~StatusBar();
 
             METHOD void AddControl(std::shared_ptr<Control> control);
-            METHOD void Show();
 
             METHOD void AddStartGripper(int dx = 0);
 
@@ -21,7 +20,9 @@ namespace libufm
 
             bool m_DrawResize = true;
 
-        private:
+        protected:
+            METHOD void Show();
+
             METHOD static LRESULT CALLBACK MessageLoopForwarder(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
             METHOD LRESULT CALLBACK MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 

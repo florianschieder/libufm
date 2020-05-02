@@ -2,19 +2,16 @@
 
 using namespace libufm::GUI;
 
-METHOD Image::Image(Window* parent, String path, int x, int y, int w, int h) : Control(parent)
+METHOD Image::Image(Window* parent, String path) : Control(parent)
 {
-    this->m_x = x;
-    this->m_y = y;
-    this->m_width = w;
-    this->m_height = h;
-
     this->path = path;
 
     this->img = new Gdiplus::Image(path.c_str());
     
     this->realDX = img->GetWidth();
     this->realDY = img->GetHeight();
+
+    this->Show();
 }
 
 METHOD Image::~Image()
@@ -29,13 +26,13 @@ METHOD void Image::Show()
         L"STATIC",
         L"",
         WS_CHILD | WS_VISIBLE,
-        this->m_x,
-        this->m_y,
-        this->m_width,
-        this->m_height,
-        this->m_parentWindow->GetHandle(),
+        0,
+        0,
+        0,
+        0,
+        this->m_parentWindow->Handle,
         (HMENU)-2,
-        this->m_parentWindow->GetApplication()->GetInstance(),
+        ((Application*) this->m_parentWindow->AppContext)->AppInstance,
         this);
 
     SetWindowLongPtr(
@@ -94,13 +91,14 @@ METHOD void Image::OnDraw(HDC hdc)
 {
     Gdiplus::Graphics graphics(hdc);
     
-    if (this->m_width < 400 && this->m_height < 300)
+    if (this->Width < 400 && this->Height < 300)
     {
-        graphics.DrawImage(this->img, 0, 0, this->img->GetWidth(), this->img->GetHeight());
+        graphics.DrawImage(
+            this->img, 0, 0, this->img->GetWidth(), this->img->GetHeight());
         canResize = false;
     }
     else
     {
-        graphics.DrawImage(this->img, 0, 0, this->m_width, this->m_height);
+        graphics.DrawImage(this->img, 0, 0, this->Width, this->Height);
     }
 }

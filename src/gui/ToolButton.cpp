@@ -3,21 +3,30 @@
 using namespace libufm::GUI;
 
 METHOD ToolButton::ToolButton(ToolBar* toolBar)
-    : Button(toolBar->GetParent())
+    : Button(toolBar->Parent)
 {
     this->toolBar = toolBar;
-    this->SetDimensions(0, 0, 24, 24);
+    this->Show();
+
+    this->X = 0;
+    this->Y = 0;
+    this->Width = 24;
+    this->Height = 24;
 }
 
 METHOD ToolButton::ToolButton(ToolBar* toolBar, int width, int height) : ToolButton(toolBar)
 {
-    this->SetDimensions(0, 0, width, height);
+    this->X = 0;
+    this->Y = 0;
+    this->Width = width;
+    this->Height = height;
 }
 
-METHOD void ToolButton::SetPosition(int num)
+METHOD void ToolButton::SetLocation(int num)
 {
-    this->m_x = 15 + (num * 31);
-    this->m_y = 3;
+    this->SetPosition(
+        15 + (num * 31),
+        3);
 }
 
 METHOD void ToolButton::Show()

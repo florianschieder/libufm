@@ -102,16 +102,16 @@ METHOD bool libufm::Core::FileDetection::IsTextFile(FILE* fh)
 {
     char buf[512];
 
-    int readCharacters = fread_s(
+    size_t readCharacters = fread_s(
         buf,
         sizeof(buf),
         sizeof(char),
-        512,
+        (size_t)512U,
         fh);
 
     rewind(fh);
     
-    for (int i = 0; i < readCharacters; i++)
+    for (size_t i = 0; i < readCharacters; i++)
     {
         // Heuristic analysis if there are characters untypical for a
         // plain text file

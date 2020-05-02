@@ -11,7 +11,8 @@ namespace libufm
         class ShellInputBox : public InputBox
         {
         public:
-            METHOD ShellInputBox(Window* parent, int x, int y, int width, int height);
+            METHOD ShellInputBox(Window* parent);
+        protected:
             METHOD void Show();
         };
     }

@@ -5,6 +5,22 @@ using namespace libufm::GUI;
 
 METHOD Application::Application(HINSTANCE h, int n, String name)
 {
+    this->AppEnvironment = Property<Application, Environment>(
+        this,
+        &this->GetAppEnv);
+
+    this->AppInstance = Property<Application, HINSTANCE>(
+        this,
+        &this->GetAppInstance);
+
+    this->LibInstance = Property<Application, HINSTANCE>(
+        this,
+        &this->GetLibInstance);
+
+    this->ShowState = Property<Application, int>(
+        this,
+        &this->GetShowState);
+
     this->m_hAppInstance = h;
 
     #ifdef _WINDLL
@@ -200,9 +216,9 @@ METHOD void Application::InitializeEnvironment()
     }
 }
 
-METHOD int Application::GetShowState()
+METHOD int Application::GetShowState(Application* app)
 {
-    return this->m_nCmdShow;
+    return app->m_nCmdShow;
 }
 
 METHOD void Application::IndicateTimeIntensiveProcess()
@@ -210,14 +226,14 @@ METHOD void Application::IndicateTimeIntensiveProcess()
     SetCursor(this->m_cursorWait);
 }
 
-METHOD HINSTANCE Application::GetInstance()
+METHOD HINSTANCE Application::GetAppInstance(Application* app)
 {
-    return this->m_hAppInstance;
+    return app->m_hAppInstance;
 }
 
-METHOD HINSTANCE Application::GetLibInstance()
+METHOD HINSTANCE Application::GetLibInstance(Application* app)
 {
-    return this->m_hLibraryInstance;
+    return app->m_hLibraryInstance;
 }
 
 METHOD wchar_t* Application::GetLanguageString(int id) {
@@ -358,9 +374,9 @@ void Application::SetConfig(String key, LPCWSTR value)
         bufferSize);
 }
 
-METHOD Environment Application::GetEnvironment()
+METHOD Environment Application::GetAppEnv(Application* app)
 {
-    return this->m_Environment;
+    return app->m_Environment;
 }
 
 METHOD String Application::GetEnvironmentVar(String key)

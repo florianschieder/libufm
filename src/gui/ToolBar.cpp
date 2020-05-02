@@ -2,19 +2,16 @@
 
 using namespace libufm::GUI;
 
-METHOD ToolBar::ToolBar(Window* parent, int x, int y, int w, int h) : Control(parent)
+METHOD ToolBar::ToolBar(Window* parent) : Control(parent)
 {
-    this->m_x = x;
-    this->m_y = y;
-    this->m_width = w;
-    this->m_height = h;
-
     this->drawStartGripperX = -1;
 
     this->blackBrush = 0;
     this->whiteBrush = 0;
     this->toolbarSepBrush = 0;
     this->sepBrush = 0;
+
+    this->Show();
 }
 
 METHOD ToolBar::~ToolBar()
@@ -23,7 +20,8 @@ METHOD ToolBar::~ToolBar()
 
 void ToolBar::AddControl(Control* control)
 {
-    SetParent(control->GetHandle(), this->m_controlHandle);
+    ::SetParent(
+        control->Handle, this->Handle);
 }
 
 void ToolBar::Show()
@@ -33,23 +31,11 @@ void ToolBar::Show()
         TOOLBARCLASSNAME,
         L"",
         WS_CHILD | WS_VISIBLE,
-        this->m_x,
-        this->m_y,
-        this->m_width,
-        this->m_height,
-        this->m_parentWindow->GetHandle(),
+        0, 0, 0, 0,
+        ((Window*) this->Parent)->Handle,
         (HMENU) -1,
-        this->m_parentWindow->GetApplication()->GetInstance(),
+        ((Application*)this->m_parentWindow->AppContext)->AppInstance,
         this);
-    
-    SetWindowPos(
-        this->m_controlHandle,
-        HWND_NOTOPMOST,
-        this->m_x,
-        this->m_y,
-        this->m_width,
-        this->m_height,
-        0);
 
     SetWindowLongPtr(
         this->m_controlHandle,
@@ -75,7 +61,7 @@ METHOD void ToolBar::AddSeparator(int x)
 
 METHOD void ToolBar::DrawStartGripper(HDC hdc, int dx)
 {
-    for (int i = 5; i <= this->m_height - 7; i += 4)
+    for (int i = 5; i <= this->Height - 7; i += 4)
     {
         RECT rect;
         
@@ -97,9 +83,9 @@ METHOD void ToolBar::DrawSeparator(HDC hdc, int x)
 {
     RECT rect;
 
-    rect = { x, 2, x + 1, this->m_height - 5 };
+    rect = { x, 2, x + 1, this->Height - 5 };
     FillRect(hdc, &rect, this->sepBrush);
-    rect = { x + 1, 2, x + 2, this->m_height - 4 };
+    rect = { x + 1, 2, x + 2, this->Height - 4 };
     FillRect(hdc, &rect, this->whiteBrush);
 }
 
@@ -109,8 +95,8 @@ void ToolBar::OnDraw(HDC hdc)
     Gdiplus::RectF rectF(
         (Gdiplus::REAL) 0,
         (Gdiplus::REAL) 0,
-        (Gdiplus::REAL) this->m_width,
-        (Gdiplus::REAL) this->m_height);
+        (Gdiplus::REAL) this->Width,
+        (Gdiplus::REAL) this->Height);
 
     Gdiplus::LinearGradientBrush brush(
         rectF,
@@ -123,15 +109,15 @@ void ToolBar::OnDraw(HDC hdc)
     RECT rect;
 
     rect.left = 0;
-    rect.right = this->m_width;
-    rect.top = this->m_height - 2;
-    rect.bottom = this->m_height - 1;
+    rect.right = this->Width;
+    rect.top = this->Height - 2;
+    rect.bottom = this->Height - 1;
     FillRect(hdc, &rect, this->toolbarSepBrush);
     
     rect.left = 0;
-    rect.right = this->m_width;
-    rect.top = this->m_height - 1;
-    rect.bottom = this->m_height;
+    rect.right = this->Width;
+    rect.top = this->Height - 1;
+    rect.bottom = this->Height;
     FillRect(hdc, &rect, this->whiteBrush);
 
     if(this->drawStartGripperX != -1) 

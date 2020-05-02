@@ -23,7 +23,6 @@ namespace libufm
             METHOD String GetDirectory();
             METHOD void SetDirectory(String);
             METHOD void RefreshView();
-            METHOD void Show();
 
             String CurrentDrive;
             String SelectedPath;
@@ -35,6 +34,7 @@ namespace libufm
             void (*OnSelectionChanged)(ShellListView* object, Window* parent) = nullptr;
 
         private:
+            METHOD void Show();
             METHOD bool Enumerate();
 
             String m_Directory;

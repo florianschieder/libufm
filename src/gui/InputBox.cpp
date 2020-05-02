@@ -5,12 +5,7 @@ using namespace libufm::GUI;
 METHOD InputBox::InputBox(Window* parent) : Control(parent)
 {
     this->m_controlHandle = { 0 };
-    this->Text = (wchar_t*) L"";
-}
-
-METHOD InputBox::InputBox(Window* parent, int x, int y, int w, int h) : InputBox(parent)
-{
-    this->SetDimensions(x, y, w, h);
+    this->Show();
 }
 
 METHOD void InputBox::Show()
@@ -18,15 +13,15 @@ METHOD void InputBox::Show()
     this->m_controlHandle = CreateWindowEx(
         0,
         L"EDIT",
-        NULL,
-        WS_CHILD | WS_VISIBLE | WS_BORDER | specificStyles,
-        this->m_x,
-        this->m_y,
-        this->m_width,
-        this->m_height,
-        this->m_parentWindow->GetHandle(),
+        L"",
+        WS_CHILD | WS_VISIBLE | WS_BORDER,
+        0,
+        0,
+        0,
+        0,
+        this->m_parentWindow->Handle,
         (HMENU)0,
-        this->m_parentWindow->GetApplication()->GetInstance(),
+        ((Application*) this->m_parentWindow->AppContext)->AppInstance,
         NULL);
 
     SetWindowLongPtr(
@@ -45,19 +40,6 @@ METHOD void InputBox::Show()
         WM_SETFONT,
         (WPARAM)this->defaultFont,
         TRUE);
-}
-
-METHOD void InputBox::SetDimensions(int x, int y, int w, int h)
-{
-    this->m_x = x;
-    this->m_y = y;
-    this->m_width = w;
-    this->m_height = h;
-}
-
-METHOD void InputBox::SetText(wchar_t* Text)
-{
-    SendMessage(this->m_controlHandle, WM_SETTEXT, NULL, (LPARAM) Text);
 }
 
 METHOD LRESULT InputBox::MessageLoopForwarder(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)

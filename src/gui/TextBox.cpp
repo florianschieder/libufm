@@ -4,9 +4,14 @@ using namespace libufm::GUI;
 
 using namespace libufm::Core::FileDetection;
 
-METHOD TextBox::TextBox(Window* parent) : InputBox(parent)
+METHOD TextBox::TextBox(Window* parent)
+    : TextBox(parent, false)
 {
-    this->AddSpecificStyle(ES_MULTILINE | WS_VSCROLL | WS_HSCROLL);
+}
+
+METHOD TextBox::TextBox(Window* parent, bool bReadOnly) : Control(parent)
+{
+    this->bReadOnly = bReadOnly;
 
     this->hFont = CreateFont(
         PT(10),
@@ -23,6 +28,48 @@ METHOD TextBox::TextBox(Window* parent) : InputBox(parent)
         DEFAULT_QUALITY,
         DEFAULT_PITCH | FF_DONTCARE,
         TEXT("Courier New"));
+
+    this->Show();
+}
+
+METHOD void TextBox::Show()
+{
+    int styles = ES_MULTILINE | ES_AUTOHSCROLL | ES_AUTOVSCROLL
+        | WS_CHILD | WS_VISIBLE | WS_BORDER | WS_VSCROLL | WS_HSCROLL;
+
+    if (this->bReadOnly)
+        styles = styles | ES_READONLY;
+
+    this->m_controlHandle = CreateWindowEx(
+        0,
+        L"EDIT",
+        L"",
+        styles,
+        0,
+        0,
+        0,
+        0,
+        this->m_parentWindow->Handle,
+        (HMENU)0,
+        ((Application*)this->m_parentWindow->AppContext)->AppInstance,
+        NULL);
+
+    SetWindowLongPtr(
+        Handle,
+        GWLP_USERDATA,
+        (LONG_PTR)this);
+
+    SetWindowSubclass(
+        this->Handle,
+        this->MessageLoopForwarder,
+        0,
+        0);
+
+    SendMessage(
+        this->Handle,
+        WM_SETFONT,
+        (WPARAM)this->hFont,
+        TRUE);
 }
 
 METHOD TextBox::~TextBox()
@@ -30,38 +77,27 @@ METHOD TextBox::~TextBox()
     DeleteObject(this->hFont);
 }
 
-METHOD void TextBox::Show()
-{
-    InputBox::Show();
-
-    SendMessage(
-        this->m_controlHandle,
-        WM_SETFONT,
-        (WPARAM) this->hFont,
-        TRUE);
-}
-
 METHOD void TextBox::ReadBinaryFile(String file)
 {
     char* fileContent;
-    std::streampos fileSize = 0L;
+    unsigned int fileSize = 0L;
 
     std::ifstream is(file, std::ifstream::binary);
 
     if (is)
     {
         is.seekg(0, is.end);
-        fileSize = is.tellg();
+        fileSize = (unsigned int) is.tellg();
         is.seekg(0, is.beg);
 
-        std::streampos offs = fileSize;
+        unsigned int offs = fileSize;
         offs += 1;
 
         fileContent = new char[offs];
 
         is.read(fileContent, fileSize);
 
-        for (long i = 0; i < fileSize; i++)
+        for (unsigned int i = 0; i < fileSize; i++)
         {
             if (fileContent[i] <= 0 || fileContent[i] == '\n' || fileContent[i] == '\r')
             {
@@ -72,7 +108,7 @@ METHOD void TextBox::ReadBinaryFile(String file)
         fileContent[fileSize] = '\0';
 
         SendMessageA(
-            this->GetHandle(),
+            this->Handle,
             WM_SETTEXT,
             0,
             (LPARAM)fileContent);
@@ -112,7 +148,7 @@ METHOD void TextBox::ReadTextFile(String file)
             fileContent[fileSize] = L'\0';
 
             SendMessageW(
-                this->GetHandle(),
+                this->Handle,
                 WM_SETTEXT,
                 0,
                 (LPARAM)fileContent);
@@ -128,7 +164,7 @@ METHOD void TextBox::ReadTextFile(String file)
             fileContent[fileSize] = '\0';
 
             SendMessageA(
-                this->GetHandle(),
+                this->Handle,
                 WM_SETTEXT,
                 0,
                 (LPARAM)fileContent);
@@ -138,4 +174,30 @@ METHOD void TextBox::ReadTextFile(String file)
 
         fclose(fp);
     }
+}
+
+METHOD LRESULT TextBox::MessageLoopForwarder(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
+{
+    TextBox* txt = (TextBox*)GetWindowLongPtr(
+        hwnd,
+        GWLP_USERDATA);
+
+    return txt->MessageLoop(hwnd, uMsg, wParam, lParam, uIdSubclass, dwRefData);
+}
+
+METHOD LRESULT TextBox::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
+{
+    switch (uMsg)
+    {
+    case WM_CHAR:
+        if (this->OnTextChanged != nullptr)
+            this->OnTextChanged();
+        break;
+    }
+
+    return DefSubclassProc(
+        hwnd,
+        uMsg,
+        wParam,
+        lParam);
 }

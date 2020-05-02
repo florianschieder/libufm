@@ -4,6 +4,7 @@ using namespace libufm::GUI;
 
 METHOD DriveComboBox::DriveComboBox(Window* parent) : ComboBox(parent)
 {
+    this->Show();
 }
 
 METHOD void DriveComboBox::Show()

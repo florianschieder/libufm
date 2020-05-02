@@ -12,7 +12,7 @@ namespace libufm
         public:
             METHOD ToolButton(ToolBar* toolBar);
             METHOD ToolButton(ToolBar* toolBar, int width, int height);
-            METHOD void SetPosition(int num);
+            METHOD void SetLocation(int num);
             METHOD void Show();
 
         private:

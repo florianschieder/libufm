@@ -11,6 +11,7 @@ namespace libufm
         {
         public:
             METHOD DriveComboBox(Window* parent);
+        protected:
             METHOD void Show();
         };
     }

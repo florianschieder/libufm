@@ -11,14 +11,15 @@ namespace libufm
     {
         class Image : public Control {
         public:
-            METHOD Image(Window* parent, String path, int x, int y, int w, int h);
+            METHOD Image(Window* parent, String path);
             METHOD ~Image();
-            METHOD void Show();
             METHOD int GetRealWidth();
             METHOD int GetRealHeight();
             METHOD bool CanResize();
 
-        private:
+        protected:
+            METHOD void Show();
+
             int realDX;
             int realDY;
             bool canResize = true;

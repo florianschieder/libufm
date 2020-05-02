@@ -4,6 +4,7 @@ using namespace libufm::GUI;
 
 METHOD ComboBox::ComboBox(Window* parent) : Control(parent)
 {
+    this->Show();
 }
 
 METHOD void ComboBox::AddItem(String item)
@@ -22,13 +23,13 @@ METHOD void ComboBox::Show()
         WC_COMBOBOX,
         L"",
         WS_VISIBLE | WS_CHILD | CBS_DROPDOWNLIST,
-        this->m_x,
-        this->m_y,
-        this->m_width,
-        this->m_height,
-        this->m_parentWindow->GetHandle(),
+        0,
+        0,
+        0,
+        0,
+        this->m_parentWindow->Handle,
         (HMENU) this->m_ctrlID,
-        this->m_parentWindow->GetApplication()->GetInstance(),
+        ((Application*)this->m_parentWindow->AppContext)->AppInstance,
         this);
 
     SetWindowLongPtr(

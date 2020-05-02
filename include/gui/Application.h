@@ -9,6 +9,7 @@
 #include "../libufmdef.h"
 
 #include "../core/Environment.h"
+#include "../core/Property.h"
 #include "../../res/resource.h"
 
 using namespace libufm::Core;
@@ -23,25 +24,36 @@ namespace libufm
             METHOD Application(HINSTANCE h, int n, String name);
 
             METHOD int Exit();
+            METHOD void Restart();
 
             METHOD void GetConfig(String key, int* value);
             METHOD String GetConfig(String key);
             METHOD void SetConfig(String key, int value);
             METHOD void SetConfig(String key, LPCWSTR value);
 
-            METHOD Environment GetEnvironment();
             METHOD String GetEnvironmentVar(String key);
+            METHOD void SetEnvironmentVar(String key, String value);
+
             METHOD HIMAGELIST* GetShellImageBucketLarge();
             METHOD HIMAGELIST* GetShellImageBucketSmall();
             METHOD int GetInternalIconIndex(DWORD icon);
-            METHOD HINSTANCE GetInstance();
+
             METHOD wchar_t* GetLanguageString(int id);
-            METHOD HINSTANCE GetLibInstance();
-            METHOD int GetShowState();
+
             METHOD void IndicateTimeIntensiveProcess();
-            METHOD void Restart();
-            METHOD void SetEnvironmentVar(String key, String value);
             METHOD void UnindicateTimeIntensiveProcess();
+
+        properties:
+            Property<Application, Environment> AppEnvironment;
+            Property<Application, HINSTANCE> AppInstance;
+            Property<Application, HINSTANCE> LibInstance;
+            Property<Application, int> ShowState;
+
+        getters_setters:
+            Getter Environment GetAppEnv(Application* app);
+            Getter HINSTANCE GetAppInstance(Application* app);
+            Getter HINSTANCE GetLibInstance(Application* app);
+            Getter int GetShowState(Application* app);
 
         private:
             METHOD void InitializeApplicationComponents();

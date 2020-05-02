@@ -76,7 +76,16 @@ className += L'\0';
 #pragma region GUI Toolkit Definitions
 
 #define PT(x) -MulDiv(x, 96, 72)
+
 #define EventHandler static void
-#define Event public: METHOD virtual void
+#define Event METHOD virtual void
+#define Setter METHOD static void
+#define Getter METHOD static
+
+#define events public
+#define properties public
+#define getters_setters private
+#define internals private
+#define inheritables protected
 
 #pragma endregion
