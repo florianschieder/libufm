@@ -38,12 +38,6 @@
     <ClInclude Include="..\..\include\libufmdef.h">
       <Filter>libufm</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\core\FileType.h">
-      <Filter>core\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\String.h">
-      <Filter>core\Headers</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\core\Environment.h">
       <Filter>core\Headers</Filter>
     </ClInclude>
@@ -98,14 +92,14 @@
     <ClInclude Include="..\..\include\core\Property.h">
       <Filter>core\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\core\FileDetection.h">
+      <Filter>core\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\core\StringUtils.h">
+      <Filter>core\Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\core\FileType.cpp">
-      <Filter>core\Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\core\String.cpp">
-      <Filter>core\Sources</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\gui\Application.cpp">
       <Filter>gui\Sources</Filter>
     </ClCompile>
@@ -153,6 +147,12 @@
     </ClCompile>
     <ClCompile Include="..\..\src\gui\Window.cpp">
       <Filter>gui\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\FileDetection.cpp">
+      <Filter>core\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\StringUtils.cpp">
+      <Filter>core\Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

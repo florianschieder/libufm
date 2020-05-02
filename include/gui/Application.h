@@ -11,6 +11,8 @@
 #include "../core/Environment.h"
 #include "../../res/resource.h"
 
+using namespace libufm::Core;
+
 class Application final
 {
     public:

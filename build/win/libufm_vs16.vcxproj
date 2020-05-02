@@ -252,8 +252,8 @@
     <ClInclude Include="..\..\include\core\Property.h" />
     <ClInclude Include="..\..\res\resource.h" />
     <ClInclude Include="..\..\include\core\Environment.h" />
-    <ClInclude Include="..\..\include\core\FileType.h" />
-    <ClInclude Include="..\..\include\core\String.h" />
+    <ClInclude Include="..\..\include\core\FileDetection.h" />
+    <ClInclude Include="..\..\include\core\StringUtils.h" />
     <ClInclude Include="..\..\include\gui\Application.h" />
     <ClInclude Include="..\..\include\gui\Button.h" />
     <ClInclude Include="..\..\include\gui\ComboBox.h" />
@@ -274,8 +274,8 @@
     <ClInclude Include="..\..\include\libufmdef.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\core\FileType.cpp" />
-    <ClCompile Include="..\..\src\core\String.cpp" />
+    <ClCompile Include="..\..\src\core\FileDetection.cpp" />
+    <ClCompile Include="..\..\src\core\StringUtils.cpp" />
     <ClCompile Include="..\..\src\gui\Application.cpp" />
     <ClCompile Include="..\..\src\gui\Button.cpp" />
     <ClCompile Include="..\..\src\gui\ComboBox.cpp" />

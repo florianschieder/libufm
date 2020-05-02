@@ -1,0 +1,18 @@
+#pragma once
+
+#include "String.h"
+#include "../libufmdef.h"
+
+namespace libufm
+{
+    namespace Core
+    {
+        namespace FileDetection
+        {
+            METHOD String MimeTypeFromString(const String& extension);
+            METHOD bool IsGdipSupportedImage(const String& fileType);
+            METHOD bool IsUnicode(const String& filename);
+            METHOD bool IsUnicode(FILE* fh);
+        }
+    }
+}

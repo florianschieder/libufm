@@ -1,43 +1,49 @@
-template <typename T> class ReadOnlyProperty
+namespace libufm
 {
-    public:
-        ReadOnlyProperty() {}
-        ReadOnlyProperty(T initialValue)
+    namespace Core
+    {
+        template <typename T> class ReadOnlyProperty
         {
-            this->value = initialValue;
-        }
+        public:
+            ReadOnlyProperty() {}
+            ReadOnlyProperty(T initialValue)
+            {
+                this->value = initialValue;
+            }
 
-        operator T()
+            operator T()
+            {
+                return this->getValue();
+            }
+
+        private:
+            T getValue()
+            {
+                return this->value;
+            }
+        protected:
+            T value;
+        };
+
+        template <typename T> class Property
+            : public ReadOnlyProperty<T>
         {
-            return this->getValue();
-        }
+        public:
+            Property()
+                : ReadOnlyProperty<T>() {}
+            Property(T initialValue)
+                : ReadOnlyProperty<T>(initialValue) {}
 
-    private:
-        T getValue()
-        {
-            return this->value;
-        }
-    protected:
-        T value;
-};
+            void operator=(T newValue)
+            {
+                this->setValue(newValue);
+            }
 
-template <typename T> class Property
-    : public ReadOnlyProperty<T>
-{
-    public:
-        Property() 
-            : ReadOnlyProperty<T>() {}
-        Property(T initialValue)
-            : ReadOnlyProperty<T>(initialValue) {}
-
-        void operator=(T newValue)
-        {
-            this->setValue(newValue);
-        }
-
-    private:
-        void setValue(T newValue)
-        {
-            this->value = newValue;
-        }
-};
+        private:
+            void setValue(T newValue)
+            {
+                this->value = newValue;
+            }
+        };
+    }
+}

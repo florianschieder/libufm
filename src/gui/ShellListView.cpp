@@ -1,5 +1,7 @@
 #include <gui/ShellListView.h>
 
+using namespace libufm::Core::StringUtils;
+
 METHOD ShellListView::ShellListView(Window* parent) : ListView(parent)
 {
     this->m_Directory = L"C:\\";

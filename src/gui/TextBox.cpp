@@ -1,5 +1,7 @@
 #include <gui/TextBox.h>
 
+using namespace libufm::Core::FileDetection;
+
 METHOD TextBox::TextBox(Window* parent) : InputBox(parent)
 {
     this->AddSpecificStyle(ES_MULTILINE | WS_VSCROLL | WS_HSCROLL);
@@ -99,7 +101,7 @@ METHOD void TextBox::ReadTextFile(String file)
 
         long offs = fileSize + 1L;
 
-        if (libufm::FileType::IsUnicode(fp))
+        if (IsUnicode(fp))
         {
             // Read unicode file buffer
 

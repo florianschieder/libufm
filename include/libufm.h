@@ -3,8 +3,8 @@
 #include "libufmdef.h"
 
 #include "core/Environment.h"
-#include "core/FileType.h"
-#include "core/String.h"
+#include "core/FileDetection.h"
+#include "core/StringUtils.h"
 
 #include "gui/Application.h"
 #include "gui/Button.h"

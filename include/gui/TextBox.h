@@ -2,7 +2,7 @@
 
 #include <fstream>
 
-#include <core/FileType.h>
+#include <core/FileDetection.h>
 #include <gui/InputBox.h>
 
 class TextBox : public InputBox

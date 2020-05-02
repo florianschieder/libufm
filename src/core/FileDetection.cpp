@@ -1,6 +1,6 @@
-#include <core/FileType.h>
+#include <core/FileDetection.h>
 
-METHOD String libufm::FileType::MimeTypeFromString(const String& extension)
+METHOD String libufm::Core::FileDetection::MimeTypeFromString(const String& extension)
 {
     if (IsGdipSupportedImage(extension))
     {
@@ -22,7 +22,7 @@ METHOD String libufm::FileType::MimeTypeFromString(const String& extension)
     return L"unknown";
 }
 
-METHOD bool libufm::FileType::IsGdipSupportedImage(const String& fileType)
+METHOD bool libufm::Core::FileDetection::IsGdipSupportedImage(const String& fileType)
 {
     return (fileType == L"bmp" ||
         fileType == L"dib" ||
@@ -36,7 +36,7 @@ METHOD bool libufm::FileType::IsGdipSupportedImage(const String& fileType)
         fileType == L"emf");
 }
 
-METHOD bool libufm::FileType::IsUnicode(const String& filename)
+METHOD bool libufm::Core::FileDetection::IsUnicode(const String& filename)
 {
     FILE* fp;
     bool isUnicode;
@@ -53,7 +53,7 @@ METHOD bool libufm::FileType::IsUnicode(const String& filename)
     return isUnicode;
 }
 
-METHOD bool libufm::FileType::IsUnicode(FILE* fh)
+METHOD bool libufm::Core::FileDetection::IsUnicode(FILE* fh)
 {
     char buf[2];
 
