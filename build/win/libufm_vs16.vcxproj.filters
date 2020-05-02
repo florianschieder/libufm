@@ -95,6 +95,9 @@
     <ClInclude Include="..\..\include\gui\Window.h">
       <Filter>gui\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\core\Property.h">
+      <Filter>core\Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\core\FileType.cpp">

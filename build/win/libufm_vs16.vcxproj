@@ -249,6 +249,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\core\Property.h" />
     <ClInclude Include="..\..\res\resource.h" />
     <ClInclude Include="..\..\include\core\Environment.h" />
     <ClInclude Include="..\..\include\core\FileType.h" />
