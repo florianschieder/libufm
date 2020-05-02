@@ -1,151 +1,165 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Quelldateien">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="core">
+      <UniqueIdentifier>{e7e70786-24e5-4efe-9cbf-a13639412c06}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headerdateien">
+    <Filter Include="gui">
+      <UniqueIdentifier>{02d72f85-9231-4d1f-8e7a-d488db0afff4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\Headers">
+      <UniqueIdentifier>{81b34533-90c5-4060-9bf2-18ba6a627f19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\Sources">
+      <UniqueIdentifier>{3a5e1122-ce4a-4567-b7a1-2e202b68d4ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\Headers">
+      <UniqueIdentifier>{8588798b-6feb-449d-8758-1021543205be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\Sources">
+      <UniqueIdentifier>{2d695dc6-ccf4-477a-ac92-7de15186afb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libufm">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Ressourcendateien">
+    <Filter Include="resources">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\res\resource.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\Environment.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\FileType.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\String.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\gui\Application.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\gui\Button.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\gui\ComboBox.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\gui\Control.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\gui\DriveComboBox.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\gui\Icon.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\gui\Image.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\gui\InputBox.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\gui\ListView.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\gui\ShellInputBox.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\gui\ShellListView.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\gui\StatusBar.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\gui\TextBox.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\gui\ToolBar.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\gui\ToolButton.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\gui\Window.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>libufm</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\libufm.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>libufm</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\libufmdef.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>libufm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\core\FileType.h">
+      <Filter>core\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\core\String.h">
+      <Filter>core\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\core\Environment.h">
+      <Filter>core\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gui\Application.h">
+      <Filter>gui\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gui\Button.h">
+      <Filter>gui\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gui\ComboBox.h">
+      <Filter>gui\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gui\Control.h">
+      <Filter>gui\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gui\DriveComboBox.h">
+      <Filter>gui\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gui\Icon.h">
+      <Filter>gui\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gui\Image.h">
+      <Filter>gui\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gui\InputBox.h">
+      <Filter>gui\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gui\ListView.h">
+      <Filter>gui\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gui\ShellInputBox.h">
+      <Filter>gui\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gui\ShellListView.h">
+      <Filter>gui\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gui\StatusBar.h">
+      <Filter>gui\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gui\TextBox.h">
+      <Filter>gui\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gui\ToolBar.h">
+      <Filter>gui\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gui\ToolButton.h">
+      <Filter>gui\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gui\Window.h">
+      <Filter>gui\Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\core\FileType.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\core\String.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\gui\Application.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>gui\Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\gui\Button.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>gui\Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\gui\ComboBox.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>gui\Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\gui\Control.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>gui\Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\gui\DriveComboBox.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>gui\Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\gui\Icon.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>gui\Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\gui\Image.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>gui\Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\gui\InputBox.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>gui\Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\gui\ListView.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>gui\Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\gui\ShellInputBox.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>gui\Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\gui\ShellListView.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>gui\Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\gui\StatusBar.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>gui\Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\gui\TextBox.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>gui\Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\gui\ToolBar.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>gui\Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\gui\ToolButton.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>gui\Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\gui\Window.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>gui\Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\res\up.ico">
-      <Filter>Ressourcendateien</Filter>
+      <Filter>resources</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\res\libufm.rc">
-      <Filter>Ressourcendateien</Filter>
+      <Filter>resources</Filter>
     </ResourceCompile>
   </ItemGroup>
 </Project>
