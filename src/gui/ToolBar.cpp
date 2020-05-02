@@ -1,5 +1,7 @@
 #include <gui/ToolBar.h>
 
+using namespace libufm::GUI;
+
 METHOD ToolBar::ToolBar(Window* parent, int x, int y, int w, int h) : Control(parent)
 {
     this->m_x = x;

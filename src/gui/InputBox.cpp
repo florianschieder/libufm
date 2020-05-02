@@ -1,5 +1,7 @@
 #include <gui/InputBox.h>
 
+using namespace libufm::GUI;
+
 METHOD InputBox::InputBox(Window* parent) : Control(parent)
 {
     this->m_controlHandle = { 0 };

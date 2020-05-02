@@ -1,5 +1,7 @@
 #include <gui/ComboBox.h>
 
+using namespace libufm::GUI;
+
 METHOD ComboBox::ComboBox(Window* parent) : Control(parent)
 {
 }

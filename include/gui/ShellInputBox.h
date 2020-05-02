@@ -4,9 +4,15 @@
 
 #include <Shlwapi.h>
 
-class ShellInputBox : public InputBox
+namespace libufm
 {
-    public:
-        METHOD ShellInputBox(Window* parent, int x, int y, int width, int height);
-        METHOD void Show();
-};
+    namespace GUI
+    {
+        class ShellInputBox : public InputBox
+        {
+        public:
+            METHOD ShellInputBox(Window* parent, int x, int y, int width, int height);
+            METHOD void Show();
+        };
+    }
+}

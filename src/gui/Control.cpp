@@ -1,5 +1,7 @@
 #include <gui/Control.h>
 
+using namespace libufm::GUI;
+
 METHOD Control::Control(Window* parent)
 {
     this->defaultFont = CreateFont(

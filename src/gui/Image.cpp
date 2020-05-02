@@ -1,5 +1,7 @@
 #include <gui/Image.h>
 
+using namespace libufm::GUI;
+
 METHOD Image::Image(Window* parent, String path, int x, int y, int w, int h) : Control(parent)
 {
     this->m_x = x;

@@ -1,6 +1,8 @@
 #include <gui/Application.h>
 #include <gui/Window.h>
 
+using namespace libufm::GUI;
+
 METHOD Application::Application(HINSTANCE h, int n, String name)
 {
     this->m_hAppInstance = h;

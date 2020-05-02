@@ -1,5 +1,6 @@
 #include <gui/ShellListView.h>
 
+using namespace libufm::GUI;
 using namespace libufm::Core::StringUtils;
 
 METHOD ShellListView::ShellListView(Window* parent) : ListView(parent)

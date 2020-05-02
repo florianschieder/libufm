@@ -1,5 +1,7 @@
 #include <gui/DriveComboBox.h>
 
+using namespace libufm::GUI;
+
 METHOD DriveComboBox::DriveComboBox(Window* parent) : ComboBox(parent)
 {
 }

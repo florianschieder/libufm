@@ -1,5 +1,7 @@
 #include <gui/Button.h>
 
+using namespace libufm::GUI;
+
 METHOD Button::Button(Window* parent) : Control(parent)
 {
     this->m_controlHandle = { 0 };

@@ -1,5 +1,7 @@
 #include <gui/Icon.h>
 
+using namespace libufm::GUI;
+
 METHOD Icon::Icon(Window* parent, int id, int x, int y, int w, int h) : Control(parent)
 {
     this->m_x = x;

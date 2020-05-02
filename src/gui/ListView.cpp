@@ -1,5 +1,7 @@
 #include <gui/ListView.h>
 
+using namespace libufm::GUI;
+
 METHOD ListView::ListView(Window* parent) : Control(parent)
 {
     this->m_controlHandle = { 0 };

@@ -1,5 +1,7 @@
 #include <gui/ToolButton.h>
 
+using namespace libufm::GUI;
+
 METHOD ToolButton::ToolButton(ToolBar* toolBar)
     : Button(toolBar->GetParent())
 {

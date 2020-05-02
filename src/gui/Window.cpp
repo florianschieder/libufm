@@ -1,5 +1,7 @@
 #include <gui/Window.h>
 
+using namespace libufm::GUI;
+
 METHOD Window::Window(Application* app)
 {
     this->m_application = app;

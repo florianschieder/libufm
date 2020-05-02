@@ -1,5 +1,7 @@
 #include <gui/StatusBar.h>
 
+using namespace libufm::GUI;
+
 METHOD StatusBar::StatusBar(Window* parent, int x, int y, int w, int h) : Control(parent)
 {
     this->m_x = x;

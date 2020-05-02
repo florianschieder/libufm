@@ -1,5 +1,7 @@
 #include <gui/TextBox.h>
 
+using namespace libufm::GUI;
+
 using namespace libufm::Core::FileDetection;
 
 METHOD TextBox::TextBox(Window* parent) : InputBox(parent)

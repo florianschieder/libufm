@@ -13,49 +13,55 @@
 
 using namespace libufm::Core;
 
-class Application final
+namespace libufm
 {
-    public:
-        METHOD Application(HINSTANCE h, int n, String name);
+    namespace GUI
+    {
+        class Application final
+        {
+        public:
+            METHOD Application(HINSTANCE h, int n, String name);
 
-        METHOD int Exit();
+            METHOD int Exit();
 
-        METHOD void GetConfig(String key, int* value);
-        METHOD String GetConfig(String key);
-        METHOD void SetConfig(String key, int value);
-        METHOD void SetConfig(String key, LPCWSTR value);
+            METHOD void GetConfig(String key, int* value);
+            METHOD String GetConfig(String key);
+            METHOD void SetConfig(String key, int value);
+            METHOD void SetConfig(String key, LPCWSTR value);
 
-        METHOD Environment GetEnvironment();
-        METHOD String GetEnvironmentVar(String key);
-        METHOD HIMAGELIST* GetShellImageBucketLarge();
-        METHOD HIMAGELIST* GetShellImageBucketSmall();
-        METHOD int GetInternalIconIndex(DWORD icon);
-        METHOD HINSTANCE GetInstance();
-        METHOD wchar_t* GetLanguageString(int id);
-        METHOD HINSTANCE GetLibInstance();
-        METHOD int GetShowState();
-        METHOD void IndicateTimeIntensiveProcess();
-        METHOD void Restart();
-        METHOD void SetEnvironmentVar(String key, String value);
-        METHOD void UnindicateTimeIntensiveProcess();
+            METHOD Environment GetEnvironment();
+            METHOD String GetEnvironmentVar(String key);
+            METHOD HIMAGELIST* GetShellImageBucketLarge();
+            METHOD HIMAGELIST* GetShellImageBucketSmall();
+            METHOD int GetInternalIconIndex(DWORD icon);
+            METHOD HINSTANCE GetInstance();
+            METHOD wchar_t* GetLanguageString(int id);
+            METHOD HINSTANCE GetLibInstance();
+            METHOD int GetShowState();
+            METHOD void IndicateTimeIntensiveProcess();
+            METHOD void Restart();
+            METHOD void SetEnvironmentVar(String key, String value);
+            METHOD void UnindicateTimeIntensiveProcess();
 
-    private:
-        METHOD void InitializeApplicationComponents();
-        METHOD void InitializeShellImageBucket();
-        METHOD void InitializeCommonControls();
-        METHOD void InitializeEnvironment();
-        
-        ULONG_PTR gdiplusToken;
+        private:
+            METHOD void InitializeApplicationComponents();
+            METHOD void InitializeShellImageBucket();
+            METHOD void InitializeCommonControls();
+            METHOD void InitializeEnvironment();
 
-        String m_appName;
-        int m_iUpIconIndex;
-        HIMAGELIST m_largeShellImageBucket;
-        HIMAGELIST m_smallShellImageBucket;
-        HCURSOR m_cursorHand;
-        HCURSOR m_cursorWait;
-        HICON m_iconUp;
-        Environment m_Environment;
-        HINSTANCE m_hAppInstance;
-        HINSTANCE m_hLibraryInstance;
-        int m_nCmdShow;
-};
+            ULONG_PTR gdiplusToken;
+
+            String m_appName;
+            int m_iUpIconIndex;
+            HIMAGELIST m_largeShellImageBucket;
+            HIMAGELIST m_smallShellImageBucket;
+            HCURSOR m_cursorHand;
+            HCURSOR m_cursorWait;
+            HICON m_iconUp;
+            Environment m_Environment;
+            HINSTANCE m_hAppInstance;
+            HINSTANCE m_hLibraryInstance;
+            int m_nCmdShow;
+        };
+    }
+}
