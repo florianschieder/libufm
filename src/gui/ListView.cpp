@@ -1,16 +1,11 @@
 #include <gui/ListView.h>
 
+using namespace libufm::GUI;
+
 METHOD ListView::ListView(Window* parent) : Control(parent)
 {
     this->m_controlHandle = { 0 };
-}
-
-METHOD void ListView::SetDimensions(int x, int y, int w, int h)
-{
-    this->m_x = x;
-    this->m_y = y;
-    this->m_width = w;
-    this->m_height = h;
+    this->Show();
 }
 
 void ListView::AddItem(int id, int imageID)
@@ -37,7 +32,7 @@ void ListView::AddSubItem(int id, int subID, String Text)
 METHOD void ListView::InitializeTimeIntensiveProcess()
 {
     // Show wait cursor (global application function)
-    this->m_parentWindow->GetApplication()->IndicateTimeIntensiveProcess();
+    ((Application*) this->m_parentWindow->AppContext)->IndicateTimeIntensiveProcess();
 
     // Force up insertion (deactivate redraw)
     SendMessage(this->m_controlHandle, WM_SETREDRAW, FALSE, 0);
@@ -49,7 +44,7 @@ METHOD void ListView::UninitializeTimeIntensiveProcess()
     SendMessage(this->m_controlHandle, WM_SETREDRAW, TRUE, 0);
 
     // Show standard cursor (global application function)
-    this->m_parentWindow->GetApplication()->UnindicateTimeIntensiveProcess();
+    ((Application*) this->m_parentWindow->AppContext)->UnindicateTimeIntensiveProcess();
 }
 
 METHOD void ListView::Show()
@@ -59,13 +54,13 @@ METHOD void ListView::Show()
         WC_LISTVIEW,
         L"",
         WS_CHILD | WS_VISIBLE | LVS_REPORT | LVS_SINGLESEL | this->specificStyles,
-        this->m_x,
-        this->m_y,
-        this->m_width,
-        this->m_height,
-        this->m_parentWindow->GetHandle(),
+        0,
+        0,
+        0,
+        0,
+        this->m_parentWindow->Handle,
         (HMENU) this->m_ctrlID,
-        this->m_parentWindow->GetApplication()->GetInstance(),
+        ((Application*) this->m_parentWindow->AppContext)->AppInstance,
         NULL);
 
     SetWindowLongPtr(

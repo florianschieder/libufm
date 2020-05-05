@@ -1,18 +1,17 @@
 #include <gui/StatusBar.h>
 
-METHOD StatusBar::StatusBar(Window* parent, int x, int y, int w, int h) : Control(parent)
-{
-    this->m_x = x;
-    this->m_y = y;
-    this->m_width = w;
-    this->m_height = h;
+using namespace libufm::GUI;
 
+METHOD StatusBar::StatusBar(Window* parent) : Control(parent)
+{
     this->m_DrawResize = true;
     this->drawStartGripperX = 0;
 
     this->blackBrush = 0;
     this->whiteBrush = 0;
     this->sepBrush = 0;
+
+    this->Show();
 }
 
 METHOD StatusBar::~StatusBar()
@@ -21,7 +20,8 @@ METHOD StatusBar::~StatusBar()
 
 void StatusBar::AddControl(std::shared_ptr<Control> control)
 {
-    SetParent(control->GetHandle(), this->m_controlHandle);
+    ::SetParent(
+        control->Handle, this->Handle);
 }
 
 void StatusBar::Show()
@@ -31,13 +31,13 @@ void StatusBar::Show()
         STATUSCLASSNAME,
         L"",
         WS_CHILD | WS_VISIBLE,
-        this->m_x,
-        this->m_y,
-        this->m_width,
-        this->m_height,
-        this->m_parentWindow->GetHandle(),
+        0,
+        0,
+        0,
+        0,
+        this->m_parentWindow->Handle,
         (HMENU)-1,
-        this->m_parentWindow->GetApplication()->GetInstance(),
+        ((Application*)this->m_parentWindow->AppContext)->AppInstance,
         this);
 
     SetWindowLongPtr(
@@ -61,7 +61,7 @@ METHOD void StatusBar::DrawStartGripper(HDC hdc, int dx)
 {
     RECT rect1, rect2;
 
-    for (int i = 5; i <= this->m_height - 3; i += 4)
+    for (int i = 5; i <= this->Height - 3; i += 4)
     {   
         rect1.left = 5 + dx;
         rect1.right = 5 + dx + 3;
@@ -83,7 +83,7 @@ void StatusBar::OnDraw(HDC hdc)
     RECT rect;
 
     rect.left = 0;
-    rect.right = this->m_width;
+    rect.right = this->Width;
     rect.top = 0;
     rect.bottom = 1;
     FillRect(
@@ -95,8 +95,8 @@ void StatusBar::OnDraw(HDC hdc)
     Gdiplus::RectF rectF(
         (Gdiplus::REAL) 0,
         (Gdiplus::REAL) 1,
-        (Gdiplus::REAL) this->m_width,
-        (Gdiplus::REAL) this->m_height - 1);
+        (Gdiplus::REAL) this->Width,
+        (Gdiplus::REAL) this->Height - 1);
 
     Gdiplus::LinearGradientBrush brush(
         rectF,
@@ -112,19 +112,19 @@ void StatusBar::OnDraw(HDC hdc)
     {
         // Upper "line" / point
 
-        rect.left = this->m_width - 5;
-        rect.right = this->m_width - 2;
-        rect.top = this->m_height - 13;
-        rect.bottom = this->m_height - 10;
+        rect.left = this->Width - 5;
+        rect.right = this->Width - 2;
+        rect.top = this->Height - 13;
+        rect.bottom = this->Height - 10;
         FillRect(
             hdc,
             &rect,
             this->whiteBrush);
         
-        rect.left = this->m_width - 5;
-        rect.right = this->m_width - 3;
-        rect.top = this->m_height - 13;
-        rect.bottom = this->m_height - 11;
+        rect.left = this->Width - 5;
+        rect.right = this->Width - 3;
+        rect.top = this->Height - 13;
+        rect.bottom = this->Height - 11;
         FillRect(
             hdc,
             &rect,
@@ -132,38 +132,38 @@ void StatusBar::OnDraw(HDC hdc)
 
         // Mid line
 
-        rect.left = this->m_width - 5;
-        rect.right = this->m_width - 2;
-        rect.top = this->m_height - 9;
-        rect.bottom = this->m_height - 6;
+        rect.left = this->Width - 5;
+        rect.right = this->Width - 2;
+        rect.top = this->Height - 9;
+        rect.bottom = this->Height - 6;
 
         FillRect(
             hdc,
             &rect,
             this->whiteBrush);
 
-        rect.left = this->m_width - 5;
-        rect.right = this->m_width - 3;
-        rect.top = this->m_height - 9;
-        rect.bottom = this->m_height - 7;
+        rect.left = this->Width - 5;
+        rect.right = this->Width - 3;
+        rect.top = this->Height - 9;
+        rect.bottom = this->Height - 7;
         FillRect(
             hdc,
             &rect,
             this->blackBrush);
 
-        rect.left = this->m_width - 9;
-        rect.right = this->m_width - 6;
-        rect.top = this->m_height - 9;
-        rect.bottom = this->m_height - 6;
+        rect.left = this->Width - 9;
+        rect.right = this->Width - 6;
+        rect.top = this->Height - 9;
+        rect.bottom = this->Height - 6;
         FillRect(
             hdc,
             &rect,
             this->whiteBrush);
 
-        rect.left = this->m_width - 9;
-        rect.right = this->m_width - 7;
-        rect.top = this->m_height - 9;
-        rect.bottom = this->m_height - 7;
+        rect.left = this->Width - 9;
+        rect.right = this->Width - 7;
+        rect.top = this->Height - 9;
+        rect.bottom = this->Height - 7;
         FillRect(
             hdc,
             &rect,
@@ -171,55 +171,55 @@ void StatusBar::OnDraw(HDC hdc)
 
         // Lower line
 
-        rect.left = this->m_width - 5;
-        rect.right = this->m_width - 2;
-        rect.top = this->m_height - 5;
-        rect.bottom = this->m_height - 2;
+        rect.left = this->Width - 5;
+        rect.right = this->Width - 2;
+        rect.top = this->Height - 5;
+        rect.bottom = this->Height - 2;
         FillRect(
             hdc,
             &rect,
             this->whiteBrush);
 
-        rect.left = this->m_width - 5;
-        rect.right = this->m_width - 3;
-        rect.top = this->m_height - 5;
-        rect.bottom = this->m_height - 3;
+        rect.left = this->Width - 5;
+        rect.right = this->Width - 3;
+        rect.top = this->Height - 5;
+        rect.bottom = this->Height - 3;
         FillRect(
             hdc,
             &rect,
             this->blackBrush);
 
-        rect.left = this->m_width - 9;
-        rect.right = this->m_width - 6;
-        rect.top = this->m_height - 5;
-        rect.bottom = this->m_height - 2;
+        rect.left = this->Width - 9;
+        rect.right = this->Width - 6;
+        rect.top = this->Height - 5;
+        rect.bottom = this->Height - 2;
         FillRect(
             hdc,
             &rect,
             this->whiteBrush);
 
-        rect.left = this->m_width - 9;
-        rect.right = this->m_width - 7;
-        rect.top = this->m_height - 5;
-        rect.bottom = this->m_height - 3;
+        rect.left = this->Width - 9;
+        rect.right = this->Width - 7;
+        rect.top = this->Height - 5;
+        rect.bottom = this->Height - 3;
         FillRect(
             hdc,
             &rect,
             this->blackBrush);
 
-        rect.left = this->m_width - 13;
-        rect.right = this->m_width - 10;
-        rect.top = this->m_height - 5;
-        rect.bottom = this->m_height - 2;
+        rect.left = this->Width - 13;
+        rect.right = this->Width - 10;
+        rect.top = this->Height - 5;
+        rect.bottom = this->Height - 2;
         FillRect(
             hdc,
             &rect,
             this->whiteBrush);
 
-        rect.left = this->m_width - 13;
-        rect.right = this->m_width - 11;
-        rect.top = this->m_height - 5;
-        rect.bottom = this->m_height - 3;
+        rect.left = this->Width - 13;
+        rect.right = this->Width - 11;
+        rect.top = this->Height - 5;
+        rect.bottom = this->Height - 3;
         FillRect(
             hdc,
             &rect,

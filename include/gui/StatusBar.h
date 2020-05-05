@@ -2,29 +2,37 @@
 
 #include "Control.h"
 
-class StatusBar : public Control {
-    public:
-        METHOD StatusBar(Window* parent, int x, int y, int w, int h);
-        METHOD ~StatusBar();
+namespace libufm
+{
+    namespace GUI
+    {
+        class StatusBar : public Control
+        {
+        public:
+            METHOD StatusBar(Window* parent);
+            METHOD ~StatusBar();
 
-        METHOD void AddControl(std::shared_ptr<Control> control);
-        METHOD void Show();
+            METHOD void AddControl(std::shared_ptr<Control> control);
 
-        METHOD void AddStartGripper(int dx = 0);
+            METHOD void AddStartGripper(int dx = 0);
 
-        METHOD void OnDraw(HDC hdc);
+            METHOD void OnDraw(HDC hdc);
 
-        bool m_DrawResize = true;
+            bool m_DrawResize = true;
 
-    private:
-        METHOD static LRESULT CALLBACK MessageLoopForwarder(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
-        METHOD LRESULT CALLBACK MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
+        protected:
+            METHOD void Show();
 
-        METHOD void DrawStartGripper(HDC hdc, int dx);
+            METHOD static LRESULT CALLBACK MessageLoopForwarder(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
+            METHOD LRESULT CALLBACK MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 
-        int drawStartGripperX;
+            METHOD void DrawStartGripper(HDC hdc, int dx);
 
-        HBRUSH whiteBrush;
-        HBRUSH blackBrush;
-        HBRUSH sepBrush;
-};
+            int drawStartGripperX;
+
+            HBRUSH whiteBrush;
+            HBRUSH blackBrush;
+            HBRUSH sepBrush;
+        };
+    }
+}

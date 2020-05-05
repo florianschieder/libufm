@@ -1,13 +1,16 @@
 #include <gui/Button.h>
 
+using namespace libufm::GUI;
+
 METHOD Button::Button(Window* parent) : Control(parent)
 {
     this->m_controlHandle = { 0 };
-    this->SetText(L"");
 
     this->iconID = -1;
     this->iconWidth = 0;
     this->iconHeight = 0;
+
+    this->Show();
 }
 
 METHOD Button::~Button()
@@ -15,28 +18,20 @@ METHOD Button::~Button()
     DestroyIcon(this->iconHandle);
 }
 
-METHOD void Button::SetDimensions(int x, int y, int w, int h)
-{
-    this->m_x = x;
-    this->m_y = y;
-    this->m_width = w;
-    this->m_height = h;
-}
-
 METHOD void Button::Show()
 {
     this->m_controlHandle = CreateWindowEx(
         0,
         L"BUTTON",
-        this->Text,
+        L"",
         WS_VISIBLE | WS_CHILD | BS_ICON | BS_NOTIFY,
-        this->m_x,
-        this->m_y,
-        this->m_width,
-        this->m_height,
-        this->m_parentWindow->GetHandle(),
+        0,
+        0,
+        0,
+        0,
+        this->m_parentWindow->Handle,
         (HMENU) this->m_ctrlID,
-        this->m_parentWindow->GetApplication()->GetInstance(),
+        ((Application*)this->m_parentWindow->AppContext)->AppInstance,
         this);
 
     SetWindowLongPtr(
@@ -50,8 +45,22 @@ METHOD void Button::Show()
         0,
         0);
 
-    this->iconHandle = (HICON) LoadImage(
-        this->m_parentWindow->GetApplication()->GetInstance(),
+    SendMessage(
+        this->m_controlHandle,
+        WM_SETFONT,
+        (WPARAM) this->defaultFont,
+        TRUE);
+}
+
+METHOD void Button::SetIcon(int iconID, int w, int h)
+{
+    this->iconID = iconID;
+
+    this->iconWidth = w;
+    this->iconHeight = h;
+
+    this->iconHandle = (HICON)LoadImage(
+        ((Application*)this->m_parentWindow->AppContext)->AppInstance,
         MAKEINTRESOURCEW(this->iconID),
         IMAGE_ICON,
         this->iconWidth, this->iconHeight,
@@ -61,25 +70,7 @@ METHOD void Button::Show()
         this->m_controlHandle,
         BM_SETIMAGE,
         IMAGE_ICON,
-        (LPARAM) this->iconHandle);
-
-    SendMessage(
-        this->m_controlHandle,
-        WM_SETFONT,
-        (WPARAM) this->defaultFont,
-        TRUE);
-}
-
-METHOD void Button::SetText(const wchar_t* Text)
-{
-    this->Text = (wchar_t*) Text;
-}
-
-METHOD void Button::SetIcon(int iconID, int w, int h)
-{
-    this->iconID = iconID;
-    this->iconWidth = w;
-    this->iconHeight = h;
+        (LPARAM)this->iconHandle);
 }
 
 METHOD LRESULT Button::MessageLoopForwarder(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)

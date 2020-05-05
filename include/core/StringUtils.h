@@ -1,0 +1,19 @@
+#pragma once
+
+#include <string>
+#include <vector>
+
+#include "../libufmdef.h"
+
+namespace libufm
+{
+    namespace Core
+    {
+        namespace StringUtils
+        {
+            METHOD String StringReplace(String subject, const String& search, const String& replace);
+            METHOD std::vector<String> StringSplit(String s, String delimiter);
+            METHOD const std::wstring AToWStr(const std::string& s);
+        }
+    }
+}

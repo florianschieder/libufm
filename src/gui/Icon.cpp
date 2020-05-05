@@ -1,16 +1,23 @@
 #include <gui/Icon.h>
 
-METHOD Icon::Icon(Window* parent, int id, int x, int y, int w, int h) : Control(parent)
-{
-    this->m_x = x;
-    this->m_y = y;
-    this->m_width = w;
-    this->m_height = h;
+using namespace libufm::GUI;
 
+METHOD Icon::Icon(Window* parent, int id) : Control(parent)
+{
     this->iconID = id;
     this->icon = LoadIcon(
-        this->m_parentWindow->GetApplication()->GetInstance(),
+        ((Application*) this->m_parentWindow->AppContext)->AppInstance,
         MAKEINTRESOURCE(id));
+    
+    this->Show();
+}
+
+METHOD Icon::Icon(Window* parent, HICON hIcon) : Control(parent)
+{
+    this->iconID = -1;
+    this->icon = hIcon;
+
+    this->Show();
 }
 
 METHOD void Icon::Show()
@@ -20,23 +27,14 @@ METHOD void Icon::Show()
         L"STATIC",
         L"",
         WS_CHILD | WS_VISIBLE,
-        this->m_x,
-        this->m_y,
-        this->m_width,
-        this->m_height,
-        this->m_parentWindow->GetHandle(),
+        0,
+        0,
+        0,
+        0,
+        this->m_parentWindow->Handle,
         (HMENU)-1,
-        this->m_parentWindow->GetApplication()->GetInstance(),
+        ((Application*) this->m_parentWindow->AppContext)->AppInstance,
         this);
-
-    SetWindowPos(
-        this->m_controlHandle,
-        HWND_NOTOPMOST,
-        this->m_x,
-        this->m_y,
-        this->m_width,
-        this->m_height,
-        0);
 
     SetWindowLongPtr(
         this->m_controlHandle,

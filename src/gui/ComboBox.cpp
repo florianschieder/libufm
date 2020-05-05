@@ -1,7 +1,17 @@
 #include <gui/ComboBox.h>
 
+using namespace libufm::GUI;
+
 METHOD ComboBox::ComboBox(Window* parent) : Control(parent)
 {
+    this->SelectedItem = Property<ComboBox, String>(
+        this,
+        &this->GetSelectedItem,
+        &this->SetSelectedItem,
+        L"",
+        false);
+
+    this->Show();
 }
 
 METHOD void ComboBox::AddItem(String item)
@@ -13,6 +23,20 @@ METHOD void ComboBox::AddItem(String item)
         (LPARAM) item.c_str());
 }
 
+String ComboBox::GetSelectedItem(ComboBox* object)
+{
+    return object->m_SelectedItem;
+}
+
+void ComboBox::SetSelectedItem(ComboBox* object, String item)
+{
+    SendMessage(
+        object->Handle,
+        CB_SELECTSTRING,
+        -1,
+        (LPARAM) item.c_str());
+}
+
 METHOD void ComboBox::Show()
 {
     this->m_controlHandle = CreateWindowEx(
@@ -20,13 +44,13 @@ METHOD void ComboBox::Show()
         WC_COMBOBOX,
         L"",
         WS_VISIBLE | WS_CHILD | CBS_DROPDOWNLIST,
-        this->m_x,
-        this->m_y,
-        this->m_width,
-        this->m_height,
-        this->m_parentWindow->GetHandle(),
+        0,
+        0,
+        0,
+        0,
+        this->m_parentWindow->Handle,
         (HMENU) this->m_ctrlID,
-        this->m_parentWindow->GetApplication()->GetInstance(),
+        ((Application*)this->m_parentWindow->AppContext)->AppInstance,
         this);
 
     SetWindowLongPtr(
@@ -66,7 +90,7 @@ METHOD LRESULT ComboBox::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 
             buffer[511] = L'\0';
 
-            this->SelectedItem = buffer;
+            this->m_SelectedItem = buffer;
 
             if (this->OnSelectionChanged != nullptr)
             {

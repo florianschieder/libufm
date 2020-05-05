@@ -1,6 +1,6 @@
-#include <core/String.h>
+#include <core/StringUtils.h>
 
-METHOD String StringReplace(String subject, const String& search, const String& replace)
+METHOD String libufm::Core::StringUtils::StringReplace(String subject, const String& search, const String& replace)
 {
     size_t pos = 0;
 
@@ -13,7 +13,7 @@ METHOD String StringReplace(String subject, const String& search, const String& 
     return subject;
 }
 
-METHOD std::vector<String> StringSplit(String s, String delimiter)
+METHOD std::vector<String> libufm::Core::StringUtils::StringSplit(String s, String delimiter)
 {
     std::vector<String> v;
     size_t pos = 0;
@@ -31,7 +31,7 @@ METHOD std::vector<String> StringSplit(String s, String delimiter)
     return v;
 }
 
-METHOD const std::wstring AToWStr(const std::string& s)
+METHOD const std::wstring libufm::Core::StringUtils::AToWStr(const std::string& s)
 {
     std::wstring ws;
     ws.assign(s.begin(), s.end());

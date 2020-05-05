@@ -1,5 +1,8 @@
 #include <gui/ShellListView.h>
 
+using namespace libufm::GUI;
+using namespace libufm::Core::StringUtils;
+
 METHOD ShellListView::ShellListView(Window* parent) : ListView(parent)
 {
     this->m_Directory = L"C:\\";
@@ -30,12 +33,12 @@ METHOD ShellListView::ShellListView(Window* parent) : ListView(parent)
     // Set image list
     ListView_SetImageList(
         this->m_controlHandle,
-        *this->m_parentWindow->GetApplication()->GetShellImageBucketLarge(),
+        *((Application*)this->m_parentWindow->AppContext)->GetShellImageBucketLarge(),
         LVSIL_NORMAL);
 
     ListView_SetImageList(
         this->m_controlHandle,
-        *this->m_parentWindow->GetApplication()->GetShellImageBucketSmall(),
+        *((Application*)this->m_parentWindow->AppContext)->GetShellImageBucketSmall(),
         LVSIL_SMALL);
 }
 
@@ -62,6 +65,9 @@ METHOD void ShellListView::RefreshView()
     ListView_DeleteAllItems(this->m_controlHandle);
 
     // Set up path
+    if (this->m_Directory == L"")
+        return;
+
     if (this->m_Directory[this->m_Directory.size() - 1] != L'\\')
         this->m_Directory.append(L"\\");
 
@@ -70,8 +76,8 @@ METHOD void ShellListView::RefreshView()
     {
         // Show access denied message
         ShellMessageBox(
-            this->m_parentWindow->GetApplication()->GetInstance(),
-            this->m_parentWindow->GetHandle(),
+            ((Application*)this->m_parentWindow->AppContext)->AppInstance,
+            this->m_parentWindow->Handle,
             L"Access to this folder is denied. Re-start the program as admin and try again.",
             L"Access denied!",
             MB_ICONWARNING,
@@ -237,7 +243,7 @@ METHOD bool ShellListView::Enumerate()
             item.extName = L"";
 
             item.iconIndex = (item.baseName == L"..")
-                ? this->m_parentWindow->GetApplication()->GetInternalIconIndex(IDI_UP)
+                ? ((Application*)this->m_parentWindow->AppContext)->GetInternalIconIndex(IDI_UP)
                 : shellFileInformation.iIcon;
 
             this->AddItem(
@@ -446,7 +452,7 @@ METHOD LRESULT CALLBACK ShellListView::MessageLoop(HWND hwnd, UINT uMsg, WPARAM 
                     LPNMLVKEYDOWN keyDown = (LPNMLVKEYDOWN) lParam;
 
                     SendMessage(
-                        this->m_parentWindow->GetHandle(),
+                        this->m_parentWindow->Handle,
                         WM_KEYDOWN,
                         keyDown->wVKey,
                         keyDown->flags);
@@ -542,7 +548,7 @@ METHOD LRESULT CALLBACK ShellListView::MessageLoop(HWND hwnd, UINT uMsg, WPARAM 
                             SHELLEXECUTEINFO info;
                             info.cbSize = sizeof(info);
                             info.fMask = SEE_MASK_DEFAULT | SEE_MASK_NOCLOSEPROCESS;
-                            info.hwnd = this->m_parentWindow->GetHandle();
+                            info.hwnd = this->m_parentWindow->Handle;
                             info.lpVerb = L"open";
                             info.lpFile = fullPath.c_str();
                             info.lpParameters = NULL;

@@ -2,11 +2,17 @@
 
 #include "ComboBox.h"
 
-class DriveComboBox
-    : public ComboBox
+namespace libufm
 {
-    public:
-        METHOD DriveComboBox(Window* parent);
-        METHOD void Show();
-};
-
+    namespace GUI
+    {
+        class DriveComboBox
+            : public ComboBox
+        {
+        public:
+            METHOD DriveComboBox(Window* parent);
+        protected:
+            METHOD void Show();
+        };
+    }
+}

@@ -2,17 +2,26 @@
 
 #include "Control.h"
 
-class Icon : public Control {
-    public:
-        METHOD Icon(Window* parent, int id, int x, int y, int w, int h);
-        METHOD void Show();
+namespace libufm
+{
+    namespace GUI
+    {
+        class Icon : public Control
+        {
+        public:
+            METHOD Icon(Window* parent, int id);
+            METHOD Icon(Window* parent, HICON hIcon);
 
-    private:
-        METHOD static LRESULT CALLBACK MessageLoopForwarder(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
-        METHOD LRESULT CALLBACK MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
+        protected:
+            METHOD void Show();
 
-        METHOD void OnDraw(HDC hdc);
+            METHOD static LRESULT CALLBACK MessageLoopForwarder(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
+            METHOD LRESULT CALLBACK MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 
-        int iconID;
-        HICON icon;
-};
+            METHOD void OnDraw(HDC hdc);
+
+            int iconID;
+            HICON icon;
+        };
+    }
+}
