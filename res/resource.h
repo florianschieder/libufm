@@ -4,7 +4,6 @@
 //
 #define IDI_UP                          130
 #define IDD_INPUTBOX                    132
-#define IDC_EDIT1                       1005
 #define IDC_INPUTBOX_INPUTFIELD         1005
 #define IDC_INPUTBOX_CAPTION            1006
 

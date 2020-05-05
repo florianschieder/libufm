@@ -191,7 +191,7 @@ METHOD void libufm::GUI::Window::SpawnStandardDialog(int dlgId)
         ((Application*)this->AppContext)->AppInstance,
         MAKEINTRESOURCE(dlgId),
         this->Handle,
-        this->StandardDlgProc);
+        &this->StandardDlgProc);
 }
 
 METHOD void libufm::GUI::Window::SpawnStandardInputDialog(const wchar_t* caption, int reason)
@@ -378,7 +378,7 @@ METHOD LRESULT CALLBACK Window::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam,
     return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
 
-METHOD LRESULT libufm::GUI::Window::StandardInputDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+METHOD INT_PTR libufm::GUI::Window::StandardInputDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)
     {
@@ -448,7 +448,7 @@ METHOD LRESULT libufm::GUI::Window::StandardInputDlgProc(HWND hDlg, UINT uMsg, W
     return TRUE;
 }
 
-METHOD LRESULT libufm::GUI::Window::StandardDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+METHOD INT_PTR libufm::GUI::Window::StandardDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)
     {

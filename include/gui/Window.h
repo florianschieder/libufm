@@ -133,8 +133,9 @@ namespace libufm
 
             METHOD static LRESULT CALLBACK MessageLoopForwarder(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
             METHOD LRESULT CALLBACK MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-            METHOD static LRESULT CALLBACK StandardInputDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
-            METHOD static LRESULT CALLBACK StandardDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+            
+            METHOD static INT_PTR CALLBACK StandardInputDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+            METHOD static INT_PTR CALLBACK StandardDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
         };
     }
 }
