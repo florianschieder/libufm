@@ -65,6 +65,9 @@ METHOD void ShellListView::RefreshView()
     ListView_DeleteAllItems(this->m_controlHandle);
 
     // Set up path
+    if (this->m_Directory == L"")
+        return;
+
     if (this->m_Directory[this->m_Directory.size() - 1] != L'\\')
         this->m_Directory.append(L"\\");
 

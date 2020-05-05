@@ -411,3 +411,21 @@ int Application::GetInternalIconIndex(DWORD icon)
             return 0;
     }
 }
+
+METHOD HICON libufm::GUI::Application::FetchFileIcon(String path)
+{
+    SHFILEINFO fileInfo;
+
+    ZeroMemory(
+        &fileInfo,
+        sizeof(fileInfo));
+
+    SHGetFileInfo(
+        path.c_str(),
+        0,
+        &fileInfo,
+        sizeof(fileInfo),
+        SHGFI_SMALLICON | SHGFI_ICON | SHGFI_ADDOVERLAYS);
+
+    return fileInfo.hIcon;
+}

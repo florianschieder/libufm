@@ -185,6 +185,64 @@ METHOD int Window::ShowMessage(HINSTANCE hInstance, String title, String text, i
         style);
 }
 
+METHOD void libufm::GUI::Window::SpawnStandardDialog(int dlgId)
+{
+    DialogBox(
+        ((Application*)this->AppContext)->AppInstance,
+        MAKEINTRESOURCE(dlgId),
+        this->Handle,
+        this->StandardDlgProc);
+}
+
+METHOD void libufm::GUI::Window::SpawnStandardInputDialog(const wchar_t* caption, int reason)
+{
+    SpawnStandardInputDialog(caption, reason, (wchar_t*) L"");
+}
+
+METHOD void libufm::GUI::Window::SpawnStandardInputDialog(const wchar_t* caption, int reason, const wchar_t* defaultInput)
+{
+    this->m_currentPostReason = reason;
+
+    DialogBoxInformation inf = { 0 };
+
+    inf.caption = caption;
+    inf.window = this;
+    inf.defaultValue = defaultInput;
+
+    DialogBoxParam(
+        ((Application*)this->AppContext)->LibInstance,
+        MAKEINTRESOURCE(IDD_INPUTBOX),
+        this->Handle,
+        &this->StandardInputDlgProc,
+        (LPARAM) &inf);
+}
+
+METHOD int Window::ShowLastError(int style)
+{
+    LPTSTR errorText = NULL;
+
+    FormatMessage(
+        FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS,
+        NULL,
+        GetLastError(),
+        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+        (LPTSTR)&errorText,
+        0,
+        NULL);
+
+    if (NULL != errorText)
+    {
+        int result = this->ShowMessage(errorText, style);
+
+        LocalFree(errorText);
+        errorText = NULL;
+
+        return result;
+    }
+
+    return -1;
+}
+
 METHOD void Window::Destroy()
 {
     DestroyWindow(this->m_windowHandle);
@@ -220,10 +278,10 @@ METHOD LRESULT CALLBACK Window::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam,
             {
                 case CBN_SELCHANGE:
                     SendMessage(
-                        GetDlgItem(hwnd, LOWORD(wParam)),
+                        (HWND) lParam,
                         WM_COMBOBOX_ITEM_CHANGED,
-                        wParam,
-                        lParam);
+                        0,
+                        0);
                     break;
 
                 case BN_CLICKED:
@@ -318,6 +376,99 @@ METHOD LRESULT CALLBACK Window::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam,
     }
 
     return DefWindowProc(hwnd, uMsg, wParam, lParam);
+}
+
+METHOD LRESULT libufm::GUI::Window::StandardInputDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    switch (uMsg)
+    {
+    case WM_INITDIALOG:
+    {
+        DialogBoxInformation* inf = (DialogBoxInformation*)lParam;
+        SetWindowText(
+            hDlg,
+            (String(((Window*)inf->window)->Title).c_str()));
+
+        SetDlgItemText(
+            hDlg,
+            IDC_INPUTBOX_CAPTION,
+            inf->caption);
+
+        SetDlgItemText(
+            hDlg,
+            IDC_INPUTBOX_INPUTFIELD, 
+            inf->defaultValue);
+
+        SetWindowLongPtr(
+            hDlg,
+            GWLP_USERDATA,
+            (LONG_PTR) inf);
+
+        return TRUE;
+    }
+
+    case WM_COMMAND:
+        switch (LOWORD(wParam))
+        {
+        case IDOK:
+        {
+            wchar_t str[MAX_PATH];
+            GetDlgItemText(hDlg, IDC_INPUTBOX_INPUTFIELD, str, MAX_PATH);
+
+            HWND parent = ::GetParent(hDlg);
+
+            DialogBoxInformation* inf = (DialogBoxInformation*)GetWindowLongPtr(
+                hDlg, GWLP_USERDATA);
+
+            Window* wnd = inf->window;
+            
+            if (parent != wnd->Handle)
+            {
+                throw std::exception("Something badly went wrong with passing parent window to dialog box");
+            }
+
+            SendMessage(
+                parent,
+                WM_POSTPARAM,
+                (WPARAM)str,
+                wnd->m_currentPostReason);
+
+            EndDialog(hDlg, IDOK);
+
+            break;
+        }
+        case IDCANCEL:
+            EndDialog(hDlg, IDCANCEL);
+            break;
+        }
+        break;
+    default:
+        return FALSE;
+    }
+    return TRUE;
+}
+
+METHOD LRESULT libufm::GUI::Window::StandardDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    switch (uMsg)
+    {
+    case WM_INITDIALOG:
+        return TRUE;
+    case WM_COMMAND:
+        switch (LOWORD(wParam))
+        {
+        case IDOK:
+            EndDialog(hDlg, IDOK);
+            break;
+        case IDCANCEL:
+            EndDialog(hDlg, IDCANCEL);
+            break;
+        }
+        break;
+    default:
+        return FALSE;
+    }
+    return TRUE;
 }
 
 METHOD LRESULT CALLBACK Window::MessageLoopForwarder(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -511,4 +662,81 @@ void libufm::GUI::Window::SetY(Window* window, int y)
         window->X, y,
         window->Width, window->Height,
         SWP_NOZORDER | SWP_SHOWWINDOW);
+}
+
+
+METHOD void Window::FillRectangleWithBrush(HDC dc, int x, int y, int width, int height, COLORREF brush)
+{
+    Gdiplus::Graphics graphics(dc);
+
+    Gdiplus::RectF rect(
+        (Gdiplus::REAL) x,
+        (Gdiplus::REAL) y,
+        (Gdiplus::REAL) width,
+        (Gdiplus::REAL) height);
+
+    Gdiplus::SolidBrush background(Gdiplus::Color(
+        GetRValue(brush),
+        GetGValue(brush),
+        GetBValue(brush)));
+
+    graphics.FillRectangle(&background, rect);
+}
+
+METHOD void Window::FillRectangleWithGradientH(HDC dc, int x, int y, int width, int height, COLORREF color1, COLORREF color2)
+{
+    Gdiplus::Graphics graphics(dc);
+
+    Gdiplus::RectF rect(
+        (Gdiplus::REAL) x,
+        (Gdiplus::REAL) y,
+        (Gdiplus::REAL) width,
+        (Gdiplus::REAL) height);
+
+    Gdiplus::Color c1(Gdiplus::Color(
+        GetRValue(color1),
+        GetGValue(color1),
+        GetBValue(color1)));
+
+    Gdiplus::Color c2(Gdiplus::Color(
+        GetRValue(color2),
+        GetGValue(color2),
+        GetBValue(color2)));
+
+    Gdiplus::LinearGradientBrush background(
+        rect,
+        c1,
+        c2,
+        Gdiplus::LinearGradientMode::LinearGradientModeHorizontal);
+
+    graphics.FillRectangle(&background, rect);
+}
+
+METHOD void Window::FillRectangleWithGradientV(HDC dc, int x, int y, int width, int height, COLORREF color1, COLORREF color2)
+{
+    Gdiplus::Graphics graphics(dc);
+
+    Gdiplus::RectF rect(
+        (Gdiplus::REAL) x,
+        (Gdiplus::REAL) y,
+        (Gdiplus::REAL) width,
+        (Gdiplus::REAL) height);
+
+    Gdiplus::Color c1(Gdiplus::Color(
+        GetRValue(color1),
+        GetGValue(color1),
+        GetBValue(color1)));
+
+    Gdiplus::Color c2(Gdiplus::Color(
+        GetRValue(color2),
+        GetGValue(color2),
+        GetBValue(color2)));
+
+    Gdiplus::LinearGradientBrush background(
+        rect,
+        c1,
+        c2,
+        Gdiplus::LinearGradientMode::LinearGradientModeVertical);
+
+    graphics.FillRectangle(&background, rect);
 }

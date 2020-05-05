@@ -259,6 +259,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\core\FileSystem.h" />
     <ClInclude Include="..\..\include\core\Property.h" />
     <ClInclude Include="..\..\res\resource.h" />
     <ClInclude Include="..\..\include\core\Environment.h" />
@@ -285,6 +286,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\core\FileDetection.cpp" />
+    <ClCompile Include="..\..\src\core\FileSystem.cpp" />
     <ClCompile Include="..\..\src\core\StringUtils.cpp" />
     <ClCompile Include="..\..\src\gui\Application.cpp" />
     <ClCompile Include="..\..\src\gui\Button.cpp" />

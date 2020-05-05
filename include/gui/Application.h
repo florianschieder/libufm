@@ -37,7 +37,8 @@ namespace libufm
             METHOD HIMAGELIST* GetShellImageBucketLarge();
             METHOD HIMAGELIST* GetShellImageBucketSmall();
             METHOD int GetInternalIconIndex(DWORD icon);
-
+            METHOD HICON FetchFileIcon(String path);
+            
             METHOD wchar_t* GetLanguageString(int id);
 
             METHOD void IndicateTimeIntensiveProcess();

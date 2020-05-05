@@ -15,6 +15,15 @@ namespace libufm
 {
     namespace GUI
     {
+        class Window;
+
+        typedef struct _DialogBoxInformation
+        {
+            Window* window;
+            LPCWSTR caption;
+            LPCWSTR defaultValue;
+        } DialogBoxInformation;
+
         class Window
         {
         public:
@@ -26,7 +35,15 @@ namespace libufm
             METHOD void Show();
             METHOD int ShowMessage(String text, int style);
             METHOD int ShowMessage(String title, String text, int style);
+            METHOD int ShowLastError(int style);
             METHOD static int ShowMessage(HINSTANCE hInstance, String title, String text, int style);
+            METHOD void SpawnStandardDialog(int dlgId);
+            METHOD void SpawnStandardInputDialog(const wchar_t* caption, int reason);
+            METHOD void SpawnStandardInputDialog(const wchar_t* caption, int reason, const wchar_t* defaultInput);
+
+            METHOD void FillRectangleWithBrush(HDC dc, int x, int y, int width, int height, COLORREF brush);
+            METHOD void FillRectangleWithGradientH(HDC dc, int x, int y, int width, int height, COLORREF color1, COLORREF color2);
+            METHOD void FillRectangleWithGradientV(HDC dc, int x, int y, int width, int height, COLORREF color1, COLORREF color2);
 
             int controlIDSequence = 50000;
             void* ActiveControl = nullptr;
@@ -100,6 +117,7 @@ namespace libufm
             METHOD int Create();
 
         inheritables:
+            int m_currentPostReason = 0;
             bool m_isOpen = false;
 
             int m_ctrlID = 50000;
@@ -115,6 +133,8 @@ namespace libufm
 
             METHOD static LRESULT CALLBACK MessageLoopForwarder(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
             METHOD LRESULT CALLBACK MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+            METHOD static LRESULT CALLBACK StandardInputDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+            METHOD static LRESULT CALLBACK StandardDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
         };
     }
 }

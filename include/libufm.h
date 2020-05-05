@@ -4,6 +4,7 @@
 
 #include "core/Environment.h"
 #include "core/FileDetection.h"
+#include "core/FileSystem.h"
 #include "core/StringUtils.h"
 
 #include "gui/Application.h"

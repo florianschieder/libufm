@@ -98,6 +98,9 @@
     <ClInclude Include="..\..\include\core\StringUtils.h">
       <Filter>core\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\core\FileSystem.h">
+      <Filter>core\Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\gui\Application.cpp">
@@ -152,6 +155,9 @@
       <Filter>core\Sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\core\StringUtils.cpp">
+      <Filter>core\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\FileSystem.cpp">
       <Filter>core\Sources</Filter>
     </ClCompile>
   </ItemGroup>

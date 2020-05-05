@@ -4,6 +4,13 @@ using namespace libufm::GUI;
 
 METHOD ComboBox::ComboBox(Window* parent) : Control(parent)
 {
+    this->SelectedItem = Property<ComboBox, String>(
+        this,
+        &this->GetSelectedItem,
+        &this->SetSelectedItem,
+        L"",
+        false);
+
     this->Show();
 }
 
@@ -13,6 +20,20 @@ METHOD void ComboBox::AddItem(String item)
         this->m_controlHandle,
         CB_ADDSTRING,
         0,
+        (LPARAM) item.c_str());
+}
+
+String ComboBox::GetSelectedItem(ComboBox* object)
+{
+    return object->m_SelectedItem;
+}
+
+void ComboBox::SetSelectedItem(ComboBox* object, String item)
+{
+    SendMessage(
+        object->Handle,
+        CB_SELECTSTRING,
+        -1,
         (LPARAM) item.c_str());
 }
 
@@ -69,7 +90,7 @@ METHOD LRESULT ComboBox::MessageLoop(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 
             buffer[511] = L'\0';
 
-            this->SelectedItem = buffer;
+            this->m_SelectedItem = buffer;
 
             if (this->OnSelectionChanged != nullptr)
             {
