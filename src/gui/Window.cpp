@@ -196,7 +196,7 @@ METHOD void libufm::GUI::Window::SpawnStandardDialog(int dlgId)
 
 METHOD void libufm::GUI::Window::SpawnStandardInputDialog(const wchar_t* caption, int reason)
 {
-    SpawnStandardInputDialog(caption, reason, (wchar_t*) L"");
+    SpawnStandardInputDialog(caption, reason, (const wchar_t*) L"");
 }
 
 METHOD void libufm::GUI::Window::SpawnStandardInputDialog(const wchar_t* caption, int reason, const wchar_t* defaultInput)

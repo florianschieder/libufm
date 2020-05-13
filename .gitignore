@@ -1,10 +1,6 @@
 # Created by https://www.gitignore.io/api/c,git,vim,c++,linux,cmake,windows,purebasic,assembler,visualstudio
 # Edit at https://www.gitignore.io/?templates=c,git,vim,c++,linux,cmake,windows,purebasic,assembler,visualstudio
 
-### Project specific ###
-build\*\bin
-build\*\obj
-
 ### Assembler ###
 *.exe
 *.o
@@ -209,19 +205,8 @@ $RECYCLE.BIN/
 # Mono auto generated files
 mono_crash.*
 
-# Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-[Aa][Rr][Mm]/
-[Aa][Rr][Mm]64/
-bld/
-[Bb]in/
+# Build results - without binary folder exception here to keep structure working with PB project
 [Oo]bj/
-[Ll]og/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/

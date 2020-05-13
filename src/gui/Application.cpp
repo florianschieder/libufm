@@ -5,6 +5,8 @@ using namespace libufm::GUI;
 
 METHOD Application::Application(HINSTANCE h, int n, String name)
 {
+    cppbul_MessageBox_Information(L"UFM", L"Hello");
+
     this->AppEnvironment = Property<Application, Environment>(
         this,
         &this->GetAppEnv);

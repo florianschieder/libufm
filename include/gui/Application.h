@@ -12,6 +12,8 @@
 #include "../core/Property.h"
 #include "../../res/resource.h"
 
+#include "../cppbul/cppbul_api.h"
+
 using namespace libufm::Core;
 
 namespace libufm

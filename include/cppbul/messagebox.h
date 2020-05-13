@@ -1,0 +1,9 @@
+void cppbul_MessageBox_Error(const wchar_t* Title, const wchar_t* Text);
+void cppbul_MessageBox_Information(const wchar_t* Title, const wchar_t* Text);
+void cppbul_MessageBox_Warning(const wchar_t* Title, const wchar_t* Text);
+int cppbul_MessageBox_Error_YesNo(const wchar_t* Title, const wchar_t* Text);
+int cppbul_MessageBox_Information_YesNo(const wchar_t* Title, const wchar_t* Text);
+int cppbul_MessageBox_Warning_YesNo(const wchar_t* Title, const wchar_t* Text);
+int cppbul_MessageBox_Error_YesNoCancel(const wchar_t* Title, const wchar_t* Text);
+int cppbul_MessageBox_Information_YesNoCancel(const wchar_t* Title, const wchar_t* Text);
+int cppbul_MessageBox_Warning_YesNoCancel(const wchar_t* Title, const wchar_t* Text);

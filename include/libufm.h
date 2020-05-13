@@ -23,3 +23,5 @@
 #include "gui/ToolBar.h"
 #include "gui/ToolButton.h"
 #include "gui/Window.h"
+
+#include "cppbul/cppbul_api.h"

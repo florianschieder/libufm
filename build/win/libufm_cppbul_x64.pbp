@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 5.71 LTS (Windows - x64)">
+  <section name="config">
+    <options closefiles="1" openmode="4" name="cppbul"/>
+    <comment>LibUFM/cppbul: Cross-Platform PureBasic Utility Layer</comment>
+  </section>
+  <section name="data">
+    <explorer view="C:\Users\Florian\Documents\Softwareentwicklung\Projekte\rtrunner\src\" pattern="0"/>
+    <log show="1"/>
+    <lastopen date="2020-05-13 15:12" user="Florian" host="DESKTOP-BQHT23V"/>
+  </section>
+  <section name="files">
+    <file name="..\..\src\cppbul\messagebox.pb">
+      <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="++"/>
+      <fingerprint md5="98ea8c4489333ed60eb2d96d3b911581"/>
+    </file>
+    <file name="..\..\src\cppbul\cppbul.pb">
+      <config load="0" scan="1" panel="1" warn="1" lastopen="0" panelstate="++"/>
+      <fingerprint md5="509cb17b6769e251254d97807c5ff696"/>
+    </file>
+    <file name="..\..\src\cppbul\inputdialog.pb">
+      <config load="0" scan="1" panel="1" warn="1" lastopen="0" panelstate="++"/>
+      <fingerprint md5="a1f4e58047009c6dba3bed1d4335ba38"/>
+    </file>
+  </section>
+  <section name="targets">
+    <target name="Debug" enabled="1" default="1">
+      <inputfile value="..\..\src\cppbul\cppbul.pb"/>
+      <outputfile value="bin\Debug\x64\libufm_cppbul.dll"/>
+      <compiler version="PureBasic 5.71 LTS (Windows - x64)"/>
+      <executable value="bin\Debug\x64\libufm_cppbul.dll"/>
+      <options asm="1" xpskin="1" dpiaware="1" onerror="1" debug="1"/>
+      <format exe="dll" cpu="1"/>
+      <compilecount enable="1" value="7"/>
+      <buildcount enable="1" value="3"/>
+      <versioninfo enable="1">
+        <field0 value="1,0,%COMPILECOUNT,%BUILDCOUNT"/>
+        <field1 value="1,0,%COMPILECOUNT,%BUILDCOUNT"/>
+        <field2 value="Florian Schieder"/>
+        <field3 value="libufm"/>
+        <field4 value="1.0.%COMPILECOUNT.%BUILDCOUNT"/>
+        <field5 value="1.0.%COMPILECOUNT.%BUILDCOUNT"/>
+        <field6 value="Cross-platform PureBasic Utility Layer for libufm"/>
+        <field7 value="cppbul"/>
+        <field8 value="%EXECUTABLE"/>
+        <field9 value="(C) Florian Schieder, 2020. All rights reserved."/>
+        <field15 value="VOS_NT"/>
+        <field16 value="VFT_DLL"/>
+      </versioninfo>
+    </target>
+    <target name="Release" enabled="1" default="0">
+      <inputfile value="..\..\src\cppbul\cppbul.pb"/>
+      <outputfile value="bin\Release\x64\libufm_cppbul.dll"/>
+      <compiler version="PureBasic 5.71 LTS (Windows - x64)"/>
+      <executable value="bin\Release\x64\libufm_cppbul.dll"/>
+      <options xpskin="1" dpiaware="1"/>
+      <format exe="dll" cpu="1"/>
+      <compilecount enable="1" value="2"/>
+      <buildcount enable="1" value="2"/>
+      <versioninfo enable="1">
+        <field0 value="1,0,%COMPILECOUNT,%BUILDCOUNT"/>
+        <field1 value="1,0,%COMPILECOUNT,%BUILDCOUNT"/>
+        <field2 value="Florian Schieder"/>
+        <field3 value="libufm"/>
+        <field4 value="1.0.%COMPILECOUNT.%BUILDCOUNT"/>
+        <field5 value="1.0.%COMPILECOUNT.%BUILDCOUNT"/>
+        <field6 value="Cross-platform PureBasic Utility Layer for libufm"/>
+        <field7 value="cppbul"/>
+        <field8 value="%EXECUTABLE"/>
+        <field9 value="(C) Florian Schieder, 2020. All rights reserved."/>
+        <field15 value="VOS_NT"/>
+        <field16 value="VFT_DLL"/>
+      </versioninfo>
+    </target>
+  </section>
+</project>

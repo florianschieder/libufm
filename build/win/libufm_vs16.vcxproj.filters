@@ -27,6 +27,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="cppbul_api">
+      <UniqueIdentifier>{7ffdd57f-4347-47cd-8e70-8d4a85cc8bc9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\res\resource.h">
@@ -100,6 +103,15 @@
     </ClInclude>
     <ClInclude Include="..\..\include\core\FileSystem.h">
       <Filter>core\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cppbul\cppbul_api.h">
+      <Filter>cppbul_api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cppbul\inputdialog.h">
+      <Filter>cppbul_api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\cppbul\messagebox.h">
+      <Filter>cppbul_api</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
